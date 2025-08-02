@@ -122,86 +122,52 @@
             margin: 30px 0;
         }
 
-        /* Panel izquierdo - Estadísticas y contador */
+        /* Panel izquierdo - Contador principal */
         .left-panel {
             display: flex;
             flex-direction: column;
             gap: 30px;
         }
 
-        /* Estadísticas en vivo */
-        .stats-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
+        /* Contador de espectáculo */
+        .show-container {
             background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 30px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 20px;
-            min-width: 140px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+            text-align: center;
         }
 
-        .stat-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            border-color: rgba(0, 255, 136, 0.5);
-        }
-
-        .stat-icon {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-            background: linear-gradient(45deg, #ff0050, #00ff88);
+        .show-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #ff0050;
+            background: linear-gradient(45deg, #ff0050, #ff8c00);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .stat-label {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .show-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.8);
         }
 
-        /* Contador regresivo */
-        .countdown-container {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 20px;
-            padding: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .countdown-title {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #00ff88;
-        }
-
-        .countdown {
+        .show-countdown {
             display: flex;
             justify-content: center;
             gap: 20px;
             flex-wrap: wrap;
+            margin: 30px 0;
         }
 
         .time-unit {
-            background: linear-gradient(135deg, rgba(255, 0, 80, 0.2), rgba(0, 255, 136, 0.2));
+            background: linear-gradient(135deg, rgba(255, 0, 80, 0.3), rgba(255, 140, 0, 0.3));
             border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            padding: 20px;
-            min-width: 100px;
+            padding: 25px;
+            min-width: 120px;
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
@@ -209,21 +175,21 @@
         .time-unit:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            border-color: rgba(0, 255, 136, 0.5);
+            border-color: rgba(255, 0, 80, 0.5);
         }
 
         .time-number {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: bold;
             margin-bottom: 5px;
-            background: linear-gradient(45deg, #ff0050, #00ff88);
+            background: linear-gradient(45deg, #ff0050, #ff8c00);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .time-label {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: rgba(255, 255, 255, 0.7);
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -232,16 +198,16 @@
         /* Barra de progreso */
         .progress-container {
             width: 100%;
-            height: 10px;
+            height: 15px;
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
+            border-radius: 8px;
             margin: 30px 0;
             overflow: hidden;
         }
 
         .progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, #ff0050, #00ff88, #00ffff);
+            background: linear-gradient(90deg, #ff0050, #ff8c00, #00ff88);
             width: 0%;
             transition: width 1s ease;
             animation: progressPulse 2s infinite;
@@ -253,18 +219,69 @@
             100% { opacity: 0.7; }
         }
 
-        /* Panel derecho - Sala de mensajes y crónicas */
+        .progress-text {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 10px;
+        }
+
+        /* Panel derecho - Estadísticas y chat */
         .right-panel {
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
+        /* Estadísticas en vivo */
+        .stats-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .stat-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: rgba(0, 255, 136, 0.5);
+        }
+
+        .stat-icon {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            background: linear-gradient(45deg, #00ff88, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Sala de mensajes */
         .chat-container {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            height: 400px;
+            height: 350px;
             display: flex;
             flex-direction: column;
         }
@@ -292,19 +309,20 @@
 
         .messages-container {
             flex: 1;
-            padding: 20px;
+            padding: 15px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
         .message {
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 12px 15px;
+            border-radius: 12px;
+            padding: 10px 12px;
             text-align: left;
             animation: messageSlideIn 0.3s ease;
+            font-size: 0.9rem;
         }
 
         @keyframes messageSlideIn {
@@ -313,13 +331,13 @@
         }
 
         .message.announcement {
-            background: rgba(0, 255, 136, 0.1);
-            border-left: 3px solid #00ff88;
+            background: rgba(255, 0, 80, 0.1);
+            border-left: 3px solid #ff0050;
         }
 
         .message.user-message {
-            background: rgba(255, 0, 80, 0.1);
-            border-left: 3px solid #ff0050;
+            background: rgba(0, 255, 136, 0.1);
+            border-left: 3px solid #00ff88;
             margin-left: 20px;
         }
 
@@ -327,26 +345,26 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
 
         .message-username {
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
         .message-time {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: rgba(255, 255, 255, 0.6);
         }
 
         .message-content {
-            font-size: 0.9rem;
-            line-height: 1.4;
+            font-size: 0.85rem;
+            line-height: 1.3;
         }
 
         .message-input-container {
-            padding: 15px;
+            padding: 12px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             background: rgba(0, 0, 0, 0.2);
             border-radius: 0 0 20px 20px;
@@ -354,12 +372,12 @@
 
         .message-input {
             width: 100%;
-            padding: 12px 15px;
-            border-radius: 25px;
+            padding: 10px 12px;
+            border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             background: rgba(255, 255, 255, 0.05);
             color: white;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .message-input:focus {
@@ -371,45 +389,68 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
-        /* Crónicas */
-        .chronicles-container {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            flex: 1;
-        }
-
-        .chronicles-title {
-            font-size: 1.2rem;
-            color: #00ff88;
-            margin-bottom: 15px;
-            display: flex;
+        /* Espectáculo - Pantalla completa */
+        .show-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff0050, #ff8c00, #00ff88);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            gap: 10px;
+            z-index: 10000;
+            animation: showEntrance 2s ease;
         }
 
-        .chronicle-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-left: 3px solid #ff0050;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 0 10px 10px 0;
-            text-align: left;
+        @keyframes showEntrance {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
 
-        .chronicle-time {
-            color: #ff0050;
-            font-size: 0.8rem;
-            margin-bottom: 5px;
+        .show-screen.active {
             display: flex;
-            align-items: center;
-            gap: 5px;
         }
 
-        .chronicle-content {
-            font-size: 0.9rem;
-            line-height: 1.4;
+        .show-logo {
+            font-size: 8rem;
+            margin-bottom: 30px;
+            animation: showLogoPulse 1s infinite;
+        }
+
+        @keyframes showLogoPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .show-title-main {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .show-subtitle-main {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ff0050;
+            animation: confettiFall 5s linear infinite;
+            z-index: 10001;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
 
         /* Footer */
@@ -445,84 +486,6 @@
             background: linear-gradient(45deg, #ff0050, #00ff88);
         }
 
-        /* Efectos especiales */
-        .glitch-text {
-            position: relative;
-            display: inline-block;
-        }
-
-        .glitch-text::before,
-        .glitch-text::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .glitch-text::before {
-            left: 2px;
-            text-shadow: -2px 0 #ff00c1;
-            clip: rect(44px, 450px, 56px, 0);
-            animation: glitch-anim 5s infinite linear alternate-reverse;
-        }
-
-        .glitch-text::after {
-            left: -2px;
-            text-shadow: -2px 0 #00fff9;
-            clip: rect(44px, 450px, 56px, 0);
-            animation: glitch-anim2 5s infinite linear alternate-reverse;
-        }
-
-        @keyframes glitch-anim {
-            0% { clip: rect(42px, 9999px, 44px, 0); }
-            5% { clip: rect(12px, 9999px, 59px, 0); }
-            10% { clip: rect(48px, 9999px, 29px, 0); }
-            15% { clip: rect(42px, 9999px, 73px, 0); }
-            20% { clip: rect(63px, 9999px, 27px, 0); }
-            25% { clip: rect(34px, 9999px, 55px, 0); }
-            30% { clip: rect(86px, 9999px, 73px, 0); }
-            35% { clip: rect(20px, 9999px, 20px, 0); }
-            40% { clip: rect(26px, 9999px, 60px, 0); }
-            45% { clip: rect(25px, 9999px, 66px, 0); }
-            50% { clip: rect(57px, 9999px, 98px, 0); }
-            55% { clip: rect(5px, 9999px, 46px, 0); }
-            60% { clip: rect(82px, 9999px, 31px, 0); }
-            65% { clip: rect(54px, 9999px, 27px, 0); }
-            70% { clip: rect(28px, 9999px, 99px, 0); }
-            75% { clip: rect(45px, 9999px, 69px, 0); }
-            80% { clip: rect(23px, 9999px, 85px, 0); }
-            85% { clip: rect(1px, 9999px, 83px, 0); }
-            90% { clip: rect(72px, 9999px, 11px, 0); }
-            95% { clip: rect(60px, 9999px, 89px, 0); }
-            100% { clip: rect(52px, 9999px, 74px, 0); }
-        }
-
-        @keyframes glitch-anim2 {
-            0% { clip: rect(65px, 9999px, 100px, 0); }
-            5% { clip: rect(52px, 9999px, 74px, 0); }
-            10% { clip: rect(79px, 9999px, 85px, 0); }
-            15% { clip: rect(75px, 9999px, 5px, 0); }
-            20% { clip: rect(67px, 9999px, 61px, 0); }
-            25% { clip: rect(14px, 9999px, 79px, 0); }
-            30% { clip: rect(1px, 9999px, 66px, 0); }
-            35% { clip: rect(86px, 9999px, 30px, 0); }
-            40% { clip: rect(23px, 9999px, 98px, 0); }
-            45% { clip: rect(85px, 9999px, 72px, 0); }
-            50% { clip: rect(71px, 9999px, 75px, 0); }
-            55% { clip: rect(2px, 9999px, 48px, 0); }
-            60% { clip: rect(30px, 9999px, 16px, 0); }
-            65% { clip: rect(59px, 9999px, 50px, 0); }
-            70% { clip: rect(41px, 9999px, 62px, 0); }
-            75% { clip: rect(2px, 9999px, 82px, 0); }
-            80% { clip: rect(47px, 9999px, 73px, 0); }
-            85% { clip: rect(3px, 9999px, 27px, 0); }
-            90% { clip: rect(26px, 9999px, 55px, 0); }
-            95% { clip: rect(42px, 9999px, 97px, 0); }
-            100% { clip: rect(38px, 9999px, 49px, 0); }
-        }
-
         /* Responsive */
         @media (max-width: 1024px) {
             .main-layout {
@@ -531,6 +494,10 @@
             
             .right-panel {
                 order: -1;
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(4, 1fr);
             }
         }
 
@@ -548,17 +515,21 @@
                 font-size: 3rem;
             }
             
-            .time-unit, .stat-item {
-                min-width: 70px;
-                padding: 12px;
+            .time-unit {
+                min-width: 80px;
+                padding: 15px;
             }
             
-            .time-number, .stat-number {
-                font-size: 1.5rem;
+            .time-number {
+                font-size: 2rem;
             }
             
-            .countdown, .stats-container {
-                gap: 8px;
+            .show-countdown {
+                gap: 10px;
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
             }
             
             .chat-container {
@@ -575,76 +546,50 @@
         .maintenance-container {
             animation: fadeIn 1s ease-out;
         }
-
-        /* Efecto matrix */
-        .matrix-effect {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            opacity: 0.1;
-            z-index: 0;
-        }
-
-        .matrix-char {
-            position: absolute;
-            color: #00ff88;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            opacity: 0;
-            animation: matrixFall 3s linear infinite;
-        }
-
-        @keyframes matrixFall {
-            0% { transform: translateY(-100px); opacity: 1; }
-            100% { transform: translateY(100vh); opacity: 0; }
-        }
-
-        /* Animación de números */
-        @keyframes numberGlow {
-            0% { text-shadow: 0 0 5px rgba(0, 255, 136, 0.5); }
-            50% { text-shadow: 0 0 20px rgba(0, 255, 136, 1), 0 0 30px rgba(0, 255, 136, 0.8); }
-            100% { text-shadow: 0 0 5px rgba(0, 255, 136, 0.5); }
-        }
-
-        .stat-number.glow {
-            animation: numberGlow 2s infinite;
-        }
-
-        /* Scrollbar personalizado */
-        .messages-container::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .messages-container::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 3px;
-        }
-
-        .messages-container::-webkit-scrollbar-thumb {
-            background: rgba(0, 255, 136, 0.3);
-            border-radius: 3px;
-        }
-
-        .messages-container::-webkit-scrollbar-thumb:hover {
-            background: rgba(0, 255, 136, 0.5);
-        }
     </style>
 </head>
 <body>
     <div class="particles" id="particles"></div>
-    <div class="matrix-effect" id="matrixEffect"></div>
+    
+    <!-- Pantalla de Espectáculo -->
+    <div class="show-screen" id="showScreen">
+        <div class="show-logo">🎉</div>
+        <div class="show-title-main">¡ESPECTÁCULO INICIADO!</div>
+        <div class="show-subtitle-main">VibeTok Pro está ahora disponible</div>
+    </div>
     
     <div class="maintenance-container">
         <div class="logo">🔧</div>
-        <h1 class="glitch-text" data-text="MANTENIMIENTO">MANTENIMIENTO</h1>
-        <p class="subtitle">Estamos realizando mejoras épicas para brindarte la mejor experiencia</p>
+        <h1>MANTENIMIENTO</h1>
+        <p class="subtitle">Preparando el espectáculo más épico de la historia</p>
         
         <div class="main-layout">
-            <!-- Panel izquierdo -->
+            <!-- Panel izquierdo - Contador principal -->
             <div class="left-panel">
+                <div class="show-container">
+                    <div class="show-title">⏰ CUENTA REGRESIVA</div>
+                    <div class="show-subtitle">El espectáculo comienza en:</div>
+                    
+                    <div class="show-countdown">
+                        <div class="time-unit">
+                            <div class="time-number" id="minutes">24</div>
+                            <div class="time-label">Minutos</div>
+                        </div>
+                        <div class="time-unit">
+                            <div class="time-number" id="seconds">00</div>
+                            <div class="time-label">Segundos</div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">0% completado</div>
+                </div>
+            </div>
+            
+            <!-- Panel derecho - Estadísticas y chat -->
+            <div class="right-panel">
                 <!-- Estadísticas en vivo -->
                 <div class="stats-container">
                     <div class="stat-item">
@@ -669,39 +614,6 @@
                     </div>
                 </div>
                 
-                <div class="countdown-container">
-                    <div class="countdown-title">TIEMPO RESTANTE PARA EL LANZAMIENTO</div>
-                    <div class="countdown">
-                        <div class="time-unit">
-                            <div class="time-number" id="years">6</div>
-                            <div class="time-label">Años</div>
-                        </div>
-                        <div class="time-unit">
-                            <div class="time-number" id="days">0</div>
-                            <div class="time-label">Días</div>
-                        </div>
-                        <div class="time-unit">
-                            <div class="time-number" id="hours">0</div>
-                            <div class="time-label">Horas</div>
-                        </div>
-                        <div class="time-unit">
-                            <div class="time-number" id="minutes">0</div>
-                            <div class="time-label">Minutos</div>
-                        </div>
-                        <div class="time-unit">
-                            <div class="time-number" id="seconds">0</div>
-                            <div class="time-label">Segundos</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="progress-container">
-                    <div class="progress-bar" id="progressBar"></div>
-                </div>
-            </div>
-            
-            <!-- Panel derecho -->
-            <div class="right-panel">
                 <!-- Sala de mensajes -->
                 <div class="chat-container">
                     <div class="chat-header">
@@ -717,67 +629,25 @@
                                 <div class="message-username">📢 Sistema</div>
                                 <div class="message-time">Ahora</div>
                             </div>
-                            <div class="message-content">Bienvenidos a la sala de mantenimiento oficial</div>
+                            <div class="message-content">¡Bienvenidos! El espectáculo comienza en 24 minutos</div>
                         </div>
                         <div class="message user-message">
                             <div class="message-header">
                                 <div class="message-username">@usuario123</div>
                                 <div class="message-time">2 min</div>
                             </div>
-                            <div class="message-content">¡Qué emoción! ¿Cuándo estará listo el nuevo sistema?</div>
+                            <div class="message-content">¡Qué emoción! ¿Qué sorpresas nos esperan?</div>
                         </div>
                         <div class="message announcement">
                             <div class="message-header">
                                 <div class="message-username">📢 Sistema</div>
                                 <div class="message-time">5 min</div>
                             </div>
-                            <div class="message-content">Implementando nuevas funciones de realidad aumentada...</div>
-                        </div>
-                        <div class="message user-message">
-                            <div class="message-header">
-                                <div class="message-username">@tech_lover</div>
-                                <div class="message-time">8 min</div>
-                            </div>
-                            <div class="message-content">Los filtros nuevos se ven increíbles!</div>
-                        </div>
-                        <div class="message user-message">
-                            <div class="message-header">
-                                <div class="message-username">@creative_mind</div>
-                                <div class="message-time">12 min</div>
-                            </div>
-                            <div class="message-content">¿Habrá mejoras en el algoritmo de recomendación?</div>
+                            <div class="message-content">Preparando funciones sorpresa...</div>
                         </div>
                     </div>
                     <div class="message-input-container">
                         <input type="text" class="message-input" placeholder="Escribe un mensaje..." id="messageInput">
-                    </div>
-                </div>
-                
-                <!-- Crónicas -->
-                <div class="chronicles-container">
-                    <div class="chronicles-title">
-                        <span>📜</span>
-                        <span>Crónicas del Mantenimiento</span>
-                    </div>
-                    <div class="chronicle-item">
-                        <div class="chronicle-time">⏱️ Hace 2 horas</div>
-                        <div class="chronicle-content">Optimizando algoritmo de recomendaciones para contenido personalizado...</div>
-                    </div>
-                    <div class="chronicle-item">
-                        <div class="chronicle-time">⏱️ Hace 1 día</div>
-                        <div class="chronicle-content">Implementando nuevos filtros de video con inteligencia artificial avanzada...</div>
-                    </div>
-                    <div class="chronicle-item">
-                        <div class="chronicle-time">⏱️ Hace 3 días</div>
-                        <div class="chronicle-content">Mejorando sistema de recompensas y gamificación para creadores...</div>
-                    </div>
-                    <div class="chronicle-item">
-                        <div class="chronicle-time">⏱️ Hace 1 semana</div>
-                        <div class="chronicle-content">Integrando streaming en vivo con calidad 4K y baja latencia...</div>
-                    </div>
-                    <div class="chronicle-item">
-                        <div class="chronicle-time">⏱️ Hace 2 semanas</div>
-                        <div class="chronicle-content">Actualizando interfaz de usuario con diseño más intuitivo...</div>
                     </div>
                 </div>
             </div>
@@ -791,7 +661,7 @@
         </div>
         
         <div class="footer">
-            <p>¡Gracias por tu paciencia! Estamos trabajando 24/7 para sorprenderte</p>
+            <p>¡Gracias por tu paciencia! El espectáculo comienza en 24 minutos</p>
             <p>© 2024 VibeTok Pro - Todos los derechos reservados</p>
         </div>
     </div>
@@ -817,29 +687,6 @@
             }
         }
 
-        // Crear efecto matrix
-        function createMatrixEffect() {
-            const matrixContainer = document.getElementById('matrixEffect');
-            const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            
-            setInterval(() => {
-                const char = document.createElement('div');
-                char.className = 'matrix-char';
-                char.textContent = chars[Math.floor(Math.random() * chars.length)];
-                char.style.left = Math.random() * 100 + 'vw';
-                char.style.animationDuration = (Math.random() * 5 + 3) + 's';
-                char.style.fontSize = (Math.random() * 10 + 10) + 'px';
-                
-                matrixContainer.appendChild(char);
-                
-                setTimeout(() => {
-                    if (char.parentNode) {
-                        char.parentNode.removeChild(char);
-                    }
-                }, 5000);
-            }, 100);
-        }
-
         // Sistema de estadísticas en vivo
         let viewers = 790200; // 790.2K
         let likes = 1200000;  // 1.2M
@@ -848,39 +695,27 @@
 
         function updateStats() {
             // Actualizar espectadores (pequeños cambios)
-            const viewerChange = Math.floor(Math.random() * 100) - 30; // -30 a +70
+            const viewerChange = Math.floor(Math.random() * 50) - 10; // -10 a +40
             viewers = Math.max(700000, viewers + viewerChange);
             document.getElementById('viewers').textContent = formatNumber(viewers);
             document.getElementById('onlineUsers').textContent = formatNumber(viewers) + ' en línea';
             
             // Actualizar likes (más frecuente)
             if (Math.random() > 0.7) {
-                likes += Math.floor(Math.random() * 500);
+                likes += Math.floor(Math.random() * 300);
                 document.getElementById('likes').textContent = formatNumber(likes);
-                document.getElementById('likes').classList.add('glow');
-                setTimeout(() => {
-                    document.getElementById('likes').classList.remove('glow');
-                }, 2000);
             }
             
             // Actualizar comentarios
             if (Math.random() > 0.8) {
-                comments += Math.floor(Math.random() * 100);
+                comments += Math.floor(Math.random() * 80);
                 document.getElementById('comments').textContent = formatNumber(comments);
-                document.getElementById('comments').classList.add('glow');
-                setTimeout(() => {
-                    document.getElementById('comments').classList.remove('glow');
-                }, 2000);
             }
             
             // Actualizar compartidos
             if (Math.random() > 0.9) {
-                shares += Math.floor(Math.random() * 50);
+                shares += Math.floor(Math.random() * 30);
                 document.getElementById('shares').textContent = formatNumber(shares);
-                document.getElementById('shares').classList.add('glow');
-                setTimeout(() => {
-                    document.getElementById('shares').classList.remove('glow');
-                }, 2000);
             }
         }
 
@@ -893,44 +728,104 @@
             return num.toString();
         }
 
-        // Cuenta regresiva de 6 años
-        function startCountdown() {
-            // Fecha de inicio (hace 6 años desde ahora)
-            const startDate = new Date();
-            startDate.setFullYear(startDate.getFullYear() - 6);
+        // Contador de 24 minutos para el espectáculo
+        let totalSeconds = 24 * 60; // 24 minutos en segundos
+        let currentSeconds = totalSeconds;
+
+        function startShowCountdown() {
+            const minutesElement = document.getElementById('minutes');
+            const secondsElement = document.getElementById('seconds');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
             
-            // Fecha final (dentro de 6 años desde ahora)
-            const endDate = new Date();
-            endDate.setFullYear(endDate.getFullYear() + 6);
+            const countdownInterval = setInterval(() => {
+                currentSeconds--;
+                
+                if (currentSeconds <= 0) {
+                    // El espectáculo comienza!
+                    clearInterval(countdownInterval);
+                    startShow();
+                    return;
+                }
+                
+                const minutes = Math.floor(currentSeconds / 60);
+                const seconds = currentSeconds % 60;
+                
+                minutesElement.textContent = minutes.toString().padStart(2, '0');
+                secondsElement.textContent = seconds.toString().padStart(2, '0');
+                
+                // Actualizar barra de progreso
+                const progress = ((totalSeconds - currentSeconds) / totalSeconds) * 100;
+                progressBar.style.width = progress + '%';
+                progressText.textContent = Math.round(progress) + '% completado';
+                
+            }, 1000);
+        }
+
+        // Iniciar el espectáculo
+        function startShow() {
+            const showScreen = document.getElementById('showScreen');
+            showScreen.classList.add('active');
             
-            function updateCountdown() {
-                const now = new Date();
-                const diff = endDate - now;
+            // Crear confeti
+            createConfetti();
+            
+            // Mensajes de chat automáticos durante el espectáculo
+            const showMessages = [
+                "¡El espectáculo ha comenzado!",
+                "¡Increíble presentación!",
+                "¿Vieron esos efectos?",
+                "¡La calidad es asombrosa!",
+                "¡Que comience la fiesta!",
+                "¡Esto es épico!",
+                "¡Bienvenidos al futuro!",
+                "¡El show está en su punto máximo!"
+            ];
+            
+            const users = ['@usuario123', '@tech_lover', '@creative_mind', '@stream_gamer'];
+            
+            setInterval(() => {
+                const randomUser = users[Math.floor(Math.random() * users.length)];
+                const randomMessage = showMessages[Math.floor(Math.random() * showMessages.length)];
                 
-                // Calcular tiempo restante
-                const years = 6; // Fijo a 6 años
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24)) % 365;
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                const messagesContainer = document.getElementById('messagesContainer');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message user-message';
+                messageDiv.innerHTML = `
+                    <div class="message-header">
+                        <div class="message-username">${randomUser}</div>
+                        <div class="message-time">Ahora</div>
+                    </div>
+                    <div class="message-content">${randomMessage}</div>
+                `;
                 
-                // Actualizar elementos
-                document.getElementById('years').textContent = years;
-                document.getElementById('days').textContent = days.toString().padStart(3, '0');
-                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 3000);
+        }
+
+        // Crear confeti para el espectáculo
+        function createConfetti() {
+            const colors = ['#ff0050', '#ff8c00', '#00ff88', '#00ffff', '#ff00ff'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                confetti.style.height = confetti.style.width;
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                confetti.style.animationDelay = (Math.random() * 2) + 's';
                 
-                // Actualizar barra de progreso (simulada)
-                const totalSeconds = 0 * 0 * 24 * 60 * 60; // 6 años en segundos
-                const elapsedSeconds = (now - startDate) / 1000;
-                const progress = (elapsedSeconds / totalSeconds) * 100;
-                document.getElementById('progressBar').style.width = Math.min(progress, 100) + '%';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    if (confetti.parentNode) {
+                        confetti.parentNode.removeChild(confetti);
+                    }
+                }, 5000);
             }
-            
-            // Actualizar inmediatamente y luego cada segundo
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
         }
 
         // Sistema de chat
@@ -939,17 +834,15 @@
             const messagesContainer = document.getElementById('messagesContainer');
             
             // Usuarios simulados
-            const users = ['@usuario123', '@tech_lover', '@creative_mind', '@stream_gamer', '@art_enthusiast', '@music_fan'];
+            const users = ['@usuario123', '@tech_lover', '@creative_mind', '@stream_gamer', '@art_enthusiast'];
             const messages = [
                 '¡Qué emoción con las nuevas funciones!',
                 '¿Cuándo estará disponible el modo creativo?',
                 'Los filtros se ven increíbles',
                 '¿Habrá mejoras en la calidad del video?',
                 'Me encanta el nuevo diseño',
-                '¿Cuándo se lanzará la app?',
                 '¡Estoy muy emocionado!',
                 '¿Habrá recompensas por participar?',
-                '¿Se podrá grabar en 4K?',
                 '¿Cuántos efectos nuevos habrá?'
             ];
             
@@ -970,36 +863,7 @@
                 
                 messagesContainer.appendChild(messageDiv);
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }, 8000);
-            
-            // Mensajes de sistema
-            setInterval(() => {
-                const systemMessages = [
-                    'Implementando nuevas funciones de realidad aumentada...',
-                    'Optimizando velocidad de carga del sistema...',
-                    'Actualizando servidores para mejor rendimiento...',
-                    'Añadiendo nuevos filtros de video...',
-                    'Mejorando algoritmo de recomendación...',
-                    'Integrando sistema de recompensas...',
-                    'Actualizando interfaz de usuario...',
-                    'Añadiendo efectos 3D...'
-                ];
-                
-                const randomSystemMessage = systemMessages[Math.floor(Math.random() * systemMessages.length)];
-                
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'message announcement';
-                messageDiv.innerHTML = `
-                    <div class="message-header">
-                        <div class="message-username">📢 Sistema</div>
-                        <div class="message-time">Ahora</div>
-                    </div>
-                    <div class="message-content">${randomSystemMessage}</div>
-                `;
-                
-                messagesContainer.appendChild(messageDiv);
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }, 12000);
+            }, 6000);
             
             // Enviar mensaje con Enter
             messageInput.addEventListener('keypress', function(e) {
@@ -1021,108 +885,14 @@
             });
         }
 
-        // Crónicas automáticas
-        function setupChronicles() {
-            const chronicles = [
-                "Integrando sistema de recompensas por interacción...",
-                "Añadiendo nuevos efectos de realidad aumentada...",
-                "Optimizando algoritmo de recomendación personalizada...",
-                "Implementando streaming en vivo con baja latencia...",
-                "Actualizando editor de videos con nuevas herramientas...",
-                "Mejorando seguridad y privacidad de usuarios...",
-                "Añadiendo modo creativo para creadores de contenido...",
-                "Integrando música profesional y efectos de sonido...",
-                "Optimizando para dispositivos móviles de última generación...",
-                "Implementando sistema de badges y logros..."
-            ];
-            
-            setInterval(() => {
-                const chroniclesContainer = document.querySelector('.chronicles-container');
-                const chronicleItems = chroniclesContainer.querySelectorAll('.chronicle-item');
-                
-                // Eliminar el último elemento si hay más de 5
-                if (chronicleItems.length >= 5) {
-                    chronicleItems[chronicleItems.length - 1].remove();
-                }
-                
-                // Agregar nuevo elemento al principio
-                const randomChronicle = chronicles[Math.floor(Math.random() * chronicles.length)];
-                const chronicleDiv = document.createElement('div');
-                chronicleDiv.className = 'chronicle-item';
-                chronicleDiv.innerHTML = `
-                    <div class="chronicle-time">⏱️ Ahora mismo</div>
-                    <div class="chronicle-content">${randomChronicle}</div>
-                `;
-                
-                chroniclesContainer.insertBefore(chronicleDiv, chroniclesContainer.firstChild.nextSibling);
-            }, 10000);
-        }
-
-        // Efecto de escritura para el título
-        function typeWriterEffect() {
-            const title = document.querySelector('h1');
-            const text = title.textContent;
-            title.textContent = '';
-            
-            let i = 0;
-            const typing = setInterval(() => {
-                if (i < text.length) {
-                    title.textContent += text.charAt(i);
-                    i++;
-                } else {
-                    clearInterval(typing);
-                }
-            }, 100);
-        }
-
-        // Efecto de brillo al hacer click
-        document.addEventListener('click', (e) => {
-            const ripple = document.createElement('div');
-            ripple.style.position = 'fixed';
-            ripple.style.width = '20px';
-            ripple.style.height = '20px';
-            ripple.style.borderRadius = '50%';
-            ripple.style.background = 'radial-gradient(circle, rgba(0, 255, 136, 0.6), transparent)';
-            ripple.style.pointerEvents = 'none';
-            ripple.style.left = e.clientX + 'px';
-            ripple.style.top = e.clientY + 'px';
-            ripple.style.transform = 'translate(-50%, -50%)';
-            ripple.style.zIndex = '9999';
-            
-            document.body.appendChild(ripple);
-            
-            setTimeout(() => {
-                ripple.style.transition = 'all 0.6s ease';
-                ripple.style.width = '300px';
-                ripple.style.height = '300px';
-                ripple.style.opacity = '0';
-            }, 10);
-            
-            setTimeout(() => {
-                document.body.removeChild(ripple);
-            }, 700);
-        });
-
         // Inicializar todo cuando la página carga
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
-            createMatrixEffect();
-            startCountdown();
-            typeWriterEffect();
+            startShowCountdown();
             setupChat();
-            setupChronicles();
             
-            // Actualizar estadísticas cada 2 segundos
-            setInterval(updateStats, 2000);
-            
-            // Efecto 3D en el contenedor
-            document.addEventListener('mousemove', (e) => {
-                const container = document.querySelector('.maintenance-container');
-                const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
-                const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
-                
-                container.style.transform = `perspective(1000px) rotateY(${xAxis}deg) rotateX(${-yAxis}deg)`;
-            });
+            // Actualizar estadísticas cada 3 segundos
+            setInterval(updateStats, 3000);
         });
     </script>
 </body>
