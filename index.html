@@ -114,6 +114,53 @@
             line-height: 1.6;
         }
 
+        /* Estadísticas en vivo */
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            min-width: 150px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(0, 255, 136, 0.5);
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            background: linear-gradient(45deg, #ff0050, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         /* Contador regresivo */
         .countdown-container {
             background: rgba(0, 0, 0, 0.3);
@@ -345,16 +392,16 @@
                 font-size: 3rem;
             }
             
-            .time-unit {
+            .time-unit, .stat-item {
                 min-width: 80px;
                 padding: 15px;
             }
             
-            .time-number {
+            .time-number, .stat-number {
                 font-size: 2rem;
             }
             
-            .countdown {
+            .countdown, .stats-container {
                 gap: 10px;
             }
         }
@@ -394,6 +441,17 @@
             0% { transform: translateY(-100px); opacity: 1; }
             100% { transform: translateY(100vh); opacity: 0; }
         }
+
+        /* Animación de números */
+        @keyframes numberGlow {
+            0% { text-shadow: 0 0 5px rgba(0, 255, 136, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(0, 255, 136, 1), 0 0 30px rgba(0, 255, 136, 0.8); }
+            100% { text-shadow: 0 0 5px rgba(0, 255, 136, 0.5); }
+        }
+
+        .stat-number.glow {
+            animation: numberGlow 2s infinite;
+        }
     </style>
 </head>
 <body>
@@ -404,6 +462,30 @@
         <div class="logo">🔧</div>
         <h1 class="glitch-text" data-text="MANTENIMIENTO">MANTENIMIENTO</h1>
         <p class="subtitle">Estamos realizando mejoras épicas para brindarte la mejor experiencia</p>
+        
+        <!-- Estadísticas en vivo -->
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-icon">👥</div>
+                <div class="stat-number" id="viewers">790.2K</div>
+                <div class="stat-label">Espectadores</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">❤️</div>
+                <div class="stat-number" id="likes">1.2M</div>
+                <div class="stat-label">Likes</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">💬</div>
+                <div class="stat-number" id="comments">89.5K</div>
+                <div class="stat-label">Comentarios</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">🔄</div>
+                <div class="stat-number" id="shares">45.8K</div>
+                <div class="stat-label">Compartidos</div>
+            </div>
+        </div>
         
         <div class="countdown-container">
             <div class="countdown-title">TIEMPO RESTANTE PARA EL LANZAMIENTO</div>
@@ -435,7 +517,7 @@
             <div class="progress-bar" id="progressBar"></div>
         </div>
         
-        <div class="messages">
+        <div class="messages" id="messagesContainer">
             <div class="message-item">
                 <div class="message-time">⏱️ Hace 2 horas</div>
                 <div>Optimizando algoritmo de recomendaciones...</div>
@@ -507,6 +589,58 @@
             }, 100);
         }
 
+        // Sistema de estadísticas en vivo
+        let viewers = 790200; // 790.2K
+        let likes = 1200000;  // 1.2M
+        let comments = 89500; // 89.5K
+        let shares = 45800;   // 45.8K
+
+        function updateStats() {
+            // Actualizar espectadores (pequeños cambios)
+            const viewerChange = Math.floor(Math.random() * 100) - 30; // -30 a +70
+            viewers = Math.max(700000, viewers + viewerChange);
+            document.getElementById('viewers').textContent = formatNumber(viewers);
+            
+            // Actualizar likes (más frecuente)
+            if (Math.random() > 0.7) {
+                likes += Math.floor(Math.random() * 500);
+                document.getElementById('likes').textContent = formatNumber(likes);
+                document.getElementById('likes').classList.add('glow');
+                setTimeout(() => {
+                    document.getElementById('likes').classList.remove('glow');
+                }, 2000);
+            }
+            
+            // Actualizar comentarios
+            if (Math.random() > 0.8) {
+                comments += Math.floor(Math.random() * 100);
+                document.getElementById('comments').textContent = formatNumber(comments);
+                document.getElementById('comments').classList.add('glow');
+                setTimeout(() => {
+                    document.getElementById('comments').classList.remove('glow');
+                }, 2000);
+            }
+            
+            // Actualizar compartidos
+            if (Math.random() > 0.9) {
+                shares += Math.floor(Math.random() * 50);
+                document.getElementById('shares').textContent = formatNumber(shares);
+                document.getElementById('shares').classList.add('glow');
+                setTimeout(() => {
+                    document.getElementById('shares').classList.remove('glow');
+                }, 2000);
+            }
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M';
+            } else if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return num.toString();
+        }
+
         // Cuenta regresiva de 6 años
         function startCountdown() {
             // Fecha de inicio (hace 6 años desde ahora)
@@ -545,6 +679,69 @@
             // Actualizar inmediatamente y luego cada segundo
             updateCountdown();
             setInterval(updateCountdown, 1000);
+        }
+
+        // Mensajes random
+        function showRandomMessages() {
+            const messages = [
+                "🔥 Implementando realidad aumentada...",
+                "⚡ Optimizando velocidad de carga...",
+                "🎨 Añadiendo nuevos filtros de IA...",
+                "🤖 Mejorando algoritmo de recomendación...",
+                "💰 Integrando sistema de recompensas...",
+                "📱 Actualizando interfaz de usuario...",
+                "✨ Añadiendo efectos 3D...",
+                "🚀 Optimizando para dispositivos móviles...",
+                "🔴 Implementando streaming en vivo...",
+                "🛡️ Mejorando seguridad y privacidad...",
+                "🌟 Añadiendo nuevas funciones sociales...",
+                "🎮 Integrando minijuegos interactivos...",
+                "💎 Mejorando calidad de video...",
+                "🎪 Añadiendo efectos especiales...",
+                "🌈 Optimizando colores y gradientes...",
+                "🎯 Personalizando feed para cada usuario...",
+                "🎪 Implementando modo creativo...",
+                "🔥 Añadiendo stickers y emojis...",
+                "🎬 Mejorando editor de videos...",
+                "🎪 Integrando música profesional..."
+            ];
+            
+            const messageContainer = document.getElementById('messagesContainer');
+            
+            setInterval(() => {
+                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message-item';
+                messageDiv.innerHTML = `
+                    <div class="message-time">⏱️ Ahora mismo</div>
+                    <div>${randomMessage}</div>
+                `;
+                
+                // Animación de entrada
+                messageDiv.style.opacity = '0';
+                messageDiv.style.transform = 'translateX(-20px)';
+                messageDiv.style.transition = 'all 0.5s ease';
+                
+                messageContainer.insertBefore(messageDiv, messageContainer.firstChild);
+                
+                // Activar animación
+                setTimeout(() => {
+                    messageDiv.style.opacity = '1';
+                    messageDiv.style.transform = 'translateX(0)';
+                }, 10);
+                
+                // Eliminar mensaje antiguo si hay más de 8
+                if (messageContainer.children.length > 8) {
+                    const lastChild = messageContainer.lastChild;
+                    lastChild.style.opacity = '0';
+                    lastChild.style.transform = 'translateX(20px)';
+                    setTimeout(() => {
+                        if (lastChild.parentNode) {
+                            messageContainer.removeChild(lastChild);
+                        }
+                    }, 500);
+                }
+            }, 4000);
         }
 
         // Efecto de escritura para el título
@@ -592,41 +789,6 @@
             }, 700);
         });
 
-        // Mensajes aleatorios
-        function showRandomMessages() {
-            const messages = [
-                "Implementando realidad aumentada...",
-                "Optimizando velocidad de carga...",
-                "Añadiendo nuevos filtros de IA...",
-                "Mejorando algoritmo de recomendación...",
-                "Integrando sistema de recompensas...",
-                "Actualizando interfaz de usuario...",
-                "Añadiendo efectos 3D...",
-                "Optimizando para dispositivos móviles...",
-                "Implementando streaming en vivo...",
-                "Mejorando seguridad y privacidad..."
-            ];
-            
-            const messageContainer = document.querySelector('.messages');
-            
-            setInterval(() => {
-                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'message-item';
-                messageDiv.innerHTML = `
-                    <div class="message-time">⏱️ Ahora mismo</div>
-                    <div>${randomMessage}</div>
-                `;
-                
-                messageContainer.insertBefore(messageDiv, messageContainer.firstChild);
-                
-                // Eliminar mensaje antiguo si hay más de 5
-                if (messageContainer.children.length > 5) {
-                    messageContainer.removeChild(messageContainer.lastChild);
-                }
-            }, 8000);
-        }
-
         // Inicializar todo cuando la página carga
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
@@ -634,6 +796,9 @@
             startCountdown();
             typeWriterEffect();
             showRandomMessages();
+            
+            // Actualizar estadísticas cada 2 segundos
+            setInterval(updateStats, 2000);
             
             // Efecto 3D en el contenedor
             document.addEventListener('mousemove', (e) => {
