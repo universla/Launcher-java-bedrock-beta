@@ -64,7 +64,7 @@
         /* Contenedor principal */
         .maintenance-container {
             text-align: center;
-            max-width: 800px;
+            max-width: 1200px;
             padding: 40px;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
@@ -114,12 +114,26 @@
             line-height: 1.6;
         }
 
+        /* Layout principal */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        /* Panel izquierdo - Estadísticas y contador */
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
         /* Estadísticas en vivo */
         .stats-container {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin: 30px 0;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
@@ -128,7 +142,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 20px;
-            min-width: 150px;
+            min-width: 140px;
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
@@ -166,7 +180,6 @@
             background: rgba(0, 0, 0, 0.3);
             border-radius: 20px;
             padding: 30px;
-            margin: 30px 0;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -188,7 +201,7 @@
             border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 20px;
-            min-width: 120px;
+            min-width: 100px;
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
@@ -200,7 +213,7 @@
         }
 
         .time-number {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: bold;
             margin-bottom: 5px;
             background: linear-gradient(45deg, #ff0050, #00ff88);
@@ -210,7 +223,7 @@
         }
 
         .time-label {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.7);
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -240,30 +253,163 @@
             100% { opacity: 0.7; }
         }
 
-        /* Mensajes */
-        .messages {
-            margin: 30px 0;
+        /* Panel derecho - Sala de mensajes y crónicas */
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        .message-item {
+        .chat-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .chat-title {
+            font-size: 1.2rem;
+            color: #00ff88;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .online-users {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-left: auto;
+        }
+
+        .messages-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
             background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 12px 15px;
+            text-align: left;
+            animation: messageSlideIn 0.3s ease;
+        }
+
+        @keyframes messageSlideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.announcement {
+            background: rgba(0, 255, 136, 0.1);
             border-left: 3px solid #00ff88;
+        }
+
+        .message.user-message {
+            background: rgba(255, 0, 80, 0.1);
+            border-left: 3px solid #ff0050;
+            margin-left: 20px;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .message-username {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .message-time {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .message-content {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .message-input-container {
+            padding: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 0 0 20px 20px;
+        }
+
+        .message-input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .message-input:focus {
+            outline: none;
+            border-color: #00ff88;
+        }
+
+        .message-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Crónicas */
+        .chronicles-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            flex: 1;
+        }
+
+        .chronicles-title {
+            font-size: 1.2rem;
+            color: #00ff88;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chronicle-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 3px solid #ff0050;
             padding: 15px;
             margin: 10px 0;
             border-radius: 0 10px 10px 0;
             text-align: left;
-            animation: slideIn 0.5s ease;
         }
 
-        @keyframes slideIn {
-            from { transform: translateX(-20px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        .message-time {
-            color: #00ff88;
-            font-size: 0.9rem;
+        .chronicle-time {
+            color: #ff0050;
+            font-size: 0.8rem;
             margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .chronicle-content {
+            font-size: 0.9rem;
+            line-height: 1.4;
         }
 
         /* Footer */
@@ -378,6 +524,16 @@
         }
 
         /* Responsive */
+        @media (max-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .right-panel {
+                order: -1;
+            }
+        }
+
         @media (max-width: 768px) {
             .maintenance-container {
                 padding: 20px;
@@ -393,16 +549,20 @@
             }
             
             .time-unit, .stat-item {
-                min-width: 80px;
-                padding: 15px;
+                min-width: 70px;
+                padding: 12px;
             }
             
             .time-number, .stat-number {
-                font-size: 2rem;
+                font-size: 1.5rem;
             }
             
             .countdown, .stats-container {
-                gap: 10px;
+                gap: 8px;
+            }
+            
+            .chat-container {
+                height: 300px;
             }
         }
 
@@ -452,6 +612,25 @@
         .stat-number.glow {
             animation: numberGlow 2s infinite;
         }
+
+        /* Scrollbar personalizado */
+        .messages-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .messages-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+
+        .messages-container::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 136, 0.3);
+            border-radius: 3px;
+        }
+
+        .messages-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 255, 136, 0.5);
+        }
     </style>
 </head>
 <body>
@@ -463,72 +642,144 @@
         <h1 class="glitch-text" data-text="MANTENIMIENTO">MANTENIMIENTO</h1>
         <p class="subtitle">Estamos realizando mejoras épicas para brindarte la mejor experiencia</p>
         
-        <!-- Estadísticas en vivo -->
-        <div class="stats-container">
-            <div class="stat-item">
-                <div class="stat-icon">👥</div>
-                <div class="stat-number" id="viewers">790.2K</div>
-                <div class="stat-label">Espectadores</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-icon">❤️</div>
-                <div class="stat-number" id="likes">1.2M</div>
-                <div class="stat-label">Likes</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-icon">💬</div>
-                <div class="stat-number" id="comments">89.5K</div>
-                <div class="stat-label">Comentarios</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-icon">🔄</div>
-                <div class="stat-number" id="shares">45.8K</div>
-                <div class="stat-label">Compartidos</div>
-            </div>
-        </div>
-        
-        <div class="countdown-container">
-            <div class="countdown-title">TIEMPO RESTANTE PARA EL LANZAMIENTO</div>
-            <div class="countdown">
-                <div class="time-unit">
-                    <div class="time-number" id="years">6</div>
-                    <div class="time-label">Años</div>
+        <div class="main-layout">
+            <!-- Panel izquierdo -->
+            <div class="left-panel">
+                <!-- Estadísticas en vivo -->
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-number" id="viewers">790.2K</div>
+                        <div class="stat-label">Espectadores</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">❤️</div>
+                        <div class="stat-number" id="likes">1.2M</div>
+                        <div class="stat-label">Likes</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">💬</div>
+                        <div class="stat-number" id="comments">89.5K</div>
+                        <div class="stat-label">Comentarios</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">🔄</div>
+                        <div class="stat-number" id="shares">45.8K</div>
+                        <div class="stat-label">Compartidos</div>
+                    </div>
                 </div>
-                <div class="time-unit">
-                    <div class="time-number" id="days">0</div>
-                    <div class="time-label">Días</div>
+                
+                <div class="countdown-container">
+                    <div class="countdown-title">TIEMPO RESTANTE PARA EL LANZAMIENTO</div>
+                    <div class="countdown">
+                        <div class="time-unit">
+                            <div class="time-number" id="years">6</div>
+                            <div class="time-label">Años</div>
+                        </div>
+                        <div class="time-unit">
+                            <div class="time-number" id="days">0</div>
+                            <div class="time-label">Días</div>
+                        </div>
+                        <div class="time-unit">
+                            <div class="time-number" id="hours">0</div>
+                            <div class="time-label">Horas</div>
+                        </div>
+                        <div class="time-unit">
+                            <div class="time-number" id="minutes">0</div>
+                            <div class="time-label">Minutos</div>
+                        </div>
+                        <div class="time-unit">
+                            <div class="time-number" id="seconds">0</div>
+                            <div class="time-label">Segundos</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="time-unit">
-                    <div class="time-number" id="hours">0</div>
-                    <div class="time-label">Horas</div>
-                </div>
-                <div class="time-unit">
-                    <div class="time-number" id="minutes">0</div>
-                    <div class="time-label">Minutos</div>
-                </div>
-                <div class="time-unit">
-                    <div class="time-number" id="seconds">0</div>
-                    <div class="time-label">Segundos</div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
                 </div>
             </div>
-        </div>
-        
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-        
-        <div class="messages" id="messagesContainer">
-            <div class="message-item">
-                <div class="message-time">⏱️ Hace 2 horas</div>
-                <div>Optimizando algoritmo de recomendaciones...</div>
-            </div>
-            <div class="message-item">
-                <div class="message-time">⏱️ Hace 1 día</div>
-                <div>Implementando nuevos filtros de video...</div>
-            </div>
-            <div class="message-item">
-                <div class="message-time">⏱️ Hace 3 días</div>
-                <div>Mejorando sistema de recompensas...</div>
+            
+            <!-- Panel derecho -->
+            <div class="right-panel">
+                <!-- Sala de mensajes -->
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <div class="chat-title">
+                            <span>💬</span>
+                            <span>Sala de Chat</span>
+                        </div>
+                        <div class="online-users" id="onlineUsers">790.2K en línea</div>
+                    </div>
+                    <div class="messages-container" id="messagesContainer">
+                        <div class="message announcement">
+                            <div class="message-header">
+                                <div class="message-username">📢 Sistema</div>
+                                <div class="message-time">Ahora</div>
+                            </div>
+                            <div class="message-content">Bienvenidos a la sala de mantenimiento oficial</div>
+                        </div>
+                        <div class="message user-message">
+                            <div class="message-header">
+                                <div class="message-username">@usuario123</div>
+                                <div class="message-time">2 min</div>
+                            </div>
+                            <div class="message-content">¡Qué emoción! ¿Cuándo estará listo el nuevo sistema?</div>
+                        </div>
+                        <div class="message announcement">
+                            <div class="message-header">
+                                <div class="message-username">📢 Sistema</div>
+                                <div class="message-time">5 min</div>
+                            </div>
+                            <div class="message-content">Implementando nuevas funciones de realidad aumentada...</div>
+                        </div>
+                        <div class="message user-message">
+                            <div class="message-header">
+                                <div class="message-username">@tech_lover</div>
+                                <div class="message-time">8 min</div>
+                            </div>
+                            <div class="message-content">Los filtros nuevos se ven increíbles!</div>
+                        </div>
+                        <div class="message user-message">
+                            <div class="message-header">
+                                <div class="message-username">@creative_mind</div>
+                                <div class="message-time">12 min</div>
+                            </div>
+                            <div class="message-content">¿Habrá mejoras en el algoritmo de recomendación?</div>
+                        </div>
+                    </div>
+                    <div class="message-input-container">
+                        <input type="text" class="message-input" placeholder="Escribe un mensaje..." id="messageInput">
+                    </div>
+                </div>
+                
+                <!-- Crónicas -->
+                <div class="chronicles-container">
+                    <div class="chronicles-title">
+                        <span>📜</span>
+                        <span>Crónicas del Mantenimiento</span>
+                    </div>
+                    <div class="chronicle-item">
+                        <div class="chronicle-time">⏱️ Hace 2 horas</div>
+                        <div class="chronicle-content">Optimizando algoritmo de recomendaciones para contenido personalizado...</div>
+                    </div>
+                    <div class="chronicle-item">
+                        <div class="chronicle-time">⏱️ Hace 1 día</div>
+                        <div class="chronicle-content">Implementando nuevos filtros de video con inteligencia artificial avanzada...</div>
+                    </div>
+                    <div class="chronicle-item">
+                        <div class="chronicle-time">⏱️ Hace 3 días</div>
+                        <div class="chronicle-content">Mejorando sistema de recompensas y gamificación para creadores...</div>
+                    </div>
+                    <div class="chronicle-item">
+                        <div class="chronicle-time">⏱️ Hace 1 semana</div>
+                        <div class="chronicle-content">Integrando streaming en vivo con calidad 4K y baja latencia...</div>
+                    </div>
+                    <div class="chronicle-item">
+                        <div class="chronicle-time">⏱️ Hace 2 semanas</div>
+                        <div class="chronicle-content">Actualizando interfaz de usuario con diseño más intuitivo...</div>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -600,6 +851,7 @@
             const viewerChange = Math.floor(Math.random() * 100) - 30; // -30 a +70
             viewers = Math.max(700000, viewers + viewerChange);
             document.getElementById('viewers').textContent = formatNumber(viewers);
+            document.getElementById('onlineUsers').textContent = formatNumber(viewers) + ' en línea';
             
             // Actualizar likes (más frecuente)
             if (Math.random() > 0.7) {
@@ -681,67 +933,129 @@
             setInterval(updateCountdown, 1000);
         }
 
-        // Mensajes random
-        function showRandomMessages() {
+        // Sistema de chat
+        function setupChat() {
+            const messageInput = document.getElementById('messageInput');
+            const messagesContainer = document.getElementById('messagesContainer');
+            
+            // Usuarios simulados
+            const users = ['@usuario123', '@tech_lover', '@creative_mind', '@stream_gamer', '@art_enthusiast', '@music_fan'];
             const messages = [
-                "🔥 Implementando realidad aumentada...",
-                "⚡ Optimizando velocidad de carga...",
-                "🎨 Añadiendo nuevos filtros de IA...",
-                "🤖 Mejorando algoritmo de recomendación...",
-                "💰 Integrando sistema de recompensas...",
-                "📱 Actualizando interfaz de usuario...",
-                "✨ Añadiendo efectos 3D...",
-                "🚀 Optimizando para dispositivos móviles...",
-                "🔴 Implementando streaming en vivo...",
-                "🛡️ Mejorando seguridad y privacidad...",
-                "🌟 Añadiendo nuevas funciones sociales...",
-                "🎮 Integrando minijuegos interactivos...",
-                "💎 Mejorando calidad de video...",
-                "🎪 Añadiendo efectos especiales...",
-                "🌈 Optimizando colores y gradientes...",
-                "🎯 Personalizando feed para cada usuario...",
-                "🎪 Implementando modo creativo...",
-                "🔥 Añadiendo stickers y emojis...",
-                "🎬 Mejorando editor de videos...",
-                "🎪 Integrando música profesional..."
+                '¡Qué emoción con las nuevas funciones!',
+                '¿Cuándo estará disponible el modo creativo?',
+                'Los filtros se ven increíbles',
+                '¿Habrá mejoras en la calidad del video?',
+                'Me encanta el nuevo diseño',
+                '¿Cuándo se lanzará la app?',
+                '¡Estoy muy emocionado!',
+                '¿Habrá recompensas por participar?',
+                '¿Se podrá grabar en 4K?',
+                '¿Cuántos efectos nuevos habrá?'
             ];
             
-            const messageContainer = document.getElementById('messagesContainer');
-            
+            // Mensajes automáticos de usuarios
             setInterval(() => {
+                const randomUser = users[Math.floor(Math.random() * users.length)];
                 const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                
                 const messageDiv = document.createElement('div');
-                messageDiv.className = 'message-item';
+                messageDiv.className = 'message user-message';
                 messageDiv.innerHTML = `
-                    <div class="message-time">⏱️ Ahora mismo</div>
-                    <div>${randomMessage}</div>
+                    <div class="message-header">
+                        <div class="message-username">${randomUser}</div>
+                        <div class="message-time">Ahora</div>
+                    </div>
+                    <div class="message-content">${randomMessage}</div>
                 `;
                 
-                // Animación de entrada
-                messageDiv.style.opacity = '0';
-                messageDiv.style.transform = 'translateX(-20px)';
-                messageDiv.style.transition = 'all 0.5s ease';
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 8000);
+            
+            // Mensajes de sistema
+            setInterval(() => {
+                const systemMessages = [
+                    'Implementando nuevas funciones de realidad aumentada...',
+                    'Optimizando velocidad de carga del sistema...',
+                    'Actualizando servidores para mejor rendimiento...',
+                    'Añadiendo nuevos filtros de video...',
+                    'Mejorando algoritmo de recomendación...',
+                    'Integrando sistema de recompensas...',
+                    'Actualizando interfaz de usuario...',
+                    'Añadiendo efectos 3D...'
+                ];
                 
-                messageContainer.insertBefore(messageDiv, messageContainer.firstChild);
+                const randomSystemMessage = systemMessages[Math.floor(Math.random() * systemMessages.length)];
                 
-                // Activar animación
-                setTimeout(() => {
-                    messageDiv.style.opacity = '1';
-                    messageDiv.style.transform = 'translateX(0)';
-                }, 10);
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message announcement';
+                messageDiv.innerHTML = `
+                    <div class="message-header">
+                        <div class="message-username">📢 Sistema</div>
+                        <div class="message-time">Ahora</div>
+                    </div>
+                    <div class="message-content">${randomSystemMessage}</div>
+                `;
                 
-                // Eliminar mensaje antiguo si hay más de 8
-                if (messageContainer.children.length > 8) {
-                    const lastChild = messageContainer.lastChild;
-                    lastChild.style.opacity = '0';
-                    lastChild.style.transform = 'translateX(20px)';
-                    setTimeout(() => {
-                        if (lastChild.parentNode) {
-                            messageContainer.removeChild(lastChild);
-                        }
-                    }, 500);
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 12000);
+            
+            // Enviar mensaje con Enter
+            messageInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && this.value.trim()) {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = 'message user-message';
+                    messageDiv.innerHTML = `
+                        <div class="message-header">
+                            <div class="message-username">@tú</div>
+                            <div class="message-time">Ahora</div>
+                        </div>
+                        <div class="message-content">${this.value}</div>
+                    `;
+                    
+                    messagesContainer.appendChild(messageDiv);
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                    this.value = '';
                 }
-            }, 4000);
+            });
+        }
+
+        // Crónicas automáticas
+        function setupChronicles() {
+            const chronicles = [
+                "Integrando sistema de recompensas por interacción...",
+                "Añadiendo nuevos efectos de realidad aumentada...",
+                "Optimizando algoritmo de recomendación personalizada...",
+                "Implementando streaming en vivo con baja latencia...",
+                "Actualizando editor de videos con nuevas herramientas...",
+                "Mejorando seguridad y privacidad de usuarios...",
+                "Añadiendo modo creativo para creadores de contenido...",
+                "Integrando música profesional y efectos de sonido...",
+                "Optimizando para dispositivos móviles de última generación...",
+                "Implementando sistema de badges y logros..."
+            ];
+            
+            setInterval(() => {
+                const chroniclesContainer = document.querySelector('.chronicles-container');
+                const chronicleItems = chroniclesContainer.querySelectorAll('.chronicle-item');
+                
+                // Eliminar el último elemento si hay más de 5
+                if (chronicleItems.length >= 5) {
+                    chronicleItems[chronicleItems.length - 1].remove();
+                }
+                
+                // Agregar nuevo elemento al principio
+                const randomChronicle = chronicles[Math.floor(Math.random() * chronicles.length)];
+                const chronicleDiv = document.createElement('div');
+                chronicleDiv.className = 'chronicle-item';
+                chronicleDiv.innerHTML = `
+                    <div class="chronicle-time">⏱️ Ahora mismo</div>
+                    <div class="chronicle-content">${randomChronicle}</div>
+                `;
+                
+                chroniclesContainer.insertBefore(chronicleDiv, chroniclesContainer.firstChild.nextSibling);
+            }, 10000);
         }
 
         // Efecto de escritura para el título
@@ -795,7 +1109,8 @@
             createMatrixEffect();
             startCountdown();
             typeWriterEffect();
-            showRandomMessages();
+            setupChat();
+            setupChronicles();
             
             // Actualizar estadísticas cada 2 segundos
             setInterval(updateStats, 2000);
