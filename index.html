@@ -922,7 +922,7 @@
                 document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
                 
                 // Actualizar barra de progreso (simulada)
-                const totalSeconds = 6 * 365 * 24 * 60 * 60; // 6 años en segundos
+                const totalSeconds = 0 * 0 * 24 * 60 * 60; // 6 años en segundos
                 const elapsedSeconds = (now - startDate) / 1000;
                 const progress = (elapsedSeconds / totalSeconds) * 100;
                 document.getElementById('progressBar').style.width = Math.min(progress, 100) + '%';
