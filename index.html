@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Dimensional | Iniciar Sesión</title>
+    <title>VibeTok - Tu Red Social</title>
     <style>
         * {
             margin: 0;
@@ -13,85 +13,253 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: white;
             overflow: hidden;
+            height: 100vh;
+        }
+
+        /* App Container */
+        .app {
+            display: flex;
+            height: 100vh;
             position: relative;
         }
 
-        /* Partículas de fondo */
-        .particles {
-            position: fixed;
+        /* Video Feed */
+        .video-feed {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-container {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: 1;
+            display: none;
         }
 
-        .particle {
+        .video-container.active {
+            display: block;
+        }
+
+        .video-player {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.6);
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+        }
+
+        /* User Info */
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            animation: float 6s infinite linear;
+            margin-right: 15px;
+            border: 2px solid #ff0050;
+            object-fit: cover;
         }
 
-        @keyframes float {
-            0% {
-                transform: translateY(0) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(100px);
-                opacity: 0;
-            }
+        .username {
+            font-weight: bold;
+            font-size: 18px;
         }
 
-        /* Contenedor principal */
-        .login-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .follow-btn {
+            margin-left: auto;
+            background: #ff0050;
+            color: white;
+            border: none;
+            padding: 8px 16px;
             border-radius: 20px;
-            padding: 40px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-            position: relative;
-            z-index: 10;
-            transform: perspective(1000px) rotateY(0deg);
-            transition: transform 0.3s ease;
+            font-weight: bold;
+            cursor: pointer;
         }
 
-        .login-container:hover {
-            transform: perspective(1000px) rotateY(5deg);
+        /* Video Content */
+        .video-content h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            line-height: 1.4;
         }
 
-        /* Logo animado */
-        .logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        .hashtags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .hashtag {
+            color: #ff0050;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .hashtag:hover {
+            text-decoration: underline;
+        }
+
+        /* Interaction Bar */
+        .interaction-bar {
+            position: absolute;
+            right: 20px;
+            bottom: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .interaction-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .interaction-icon {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .interaction-item:hover .interaction-icon {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .interaction-count {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .nav-item.active {
+            color: #ff0050;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff0050, #ff8c00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 300px;
+            margin: 0 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 20px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* Recording Button */
+        .record-btn {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff0050, #ff8c00);
+            border: 3px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 0, 80, 0.4);
+            z-index: 1000;
             animation: pulse 2s infinite;
         }
 
@@ -101,462 +269,564 @@
             100% { transform: scale(1); }
         }
 
-        h1 {
-            color: white;
-            margin-bottom: 10px;
-            font-size: 2rem;
-        }
-
-        .subtitle {
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 30px;
-            font-size: 1rem;
-        }
-
-        /* Formulario */
-        .form-group {
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 15px 20px 15px 45px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .input-field:focus {
-            outline: none;
-            border-color: #4ecdc4;
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
-        }
-
-        .input-field::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .input-icon {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        /* Botón */
-        .login-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            border: none;
-            border-radius: 50px;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .login-btn:active {
-            transform: translateY(0);
-        }
-
-        .login-btn::before {
-            content: '';
-            position: absolute;
+        /* Loading Animation */
+        .loading {
+            position: fixed;
             top: 0;
-            left: -100%;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .login-btn:hover::before {
-            left: 100%;
-        }
-
-        /* Enlaces */
-        .links {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .link {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s ease;
-        }
-
-        .link:hover {
-            color: white;
-            text-decoration: underline;
-        }
-
-        /* Mensajes */
-        .message {
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            display: none;
-        }
-
-        .error {
-            background: rgba(255, 107, 107, 0.2);
-            border: 1px solid rgba(255, 107, 107, 0.5);
-            color: #ff6b6b;
-        }
-
-        .success {
-            background: rgba(78, 205, 196, 0.2);
-            border: 1px solid rgba(78, 205, 196, 0.5);
-            color: #4ecdc4;
-        }
-
-        /* Social login */
-        .social-login {
-            margin-top: 30px;
-        }
-
-        .social-title {
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 15px;
-            font-size: 14px;
-            position: relative;
-        }
-
-        .social-title::before,
-        .social-title::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 30%;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .social-title::before {
-            left: 0;
-        }
-
-        .social-title::after {
-            right: 0;
-        }
-
-        .social-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .social-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            background: #000;
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 2000;
         }
 
-        .social-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .google { background: linear-gradient(45deg, #dd4b39, #c23321); }
-        .github { background: linear-gradient(45deg, #333, #000); }
-        .microsoft { background: linear-gradient(45deg, #0078d7, #005a9e); }
-
-        /* Responsive */
-        @media (max-width: 480px) {
-            .login-container {
-                padding: 30px 20px;
-                margin: 20px;
-            }
-            
-            h1 {
-                font-size: 1.5rem;
-            }
-            
-            .links {
-                flex-direction: column;
-                gap: 10px;
-                align-items: center;
-            }
-        }
-
-        /* Loading spinner */
         .spinner {
-            display: none;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #ff0050;
             border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-            margin: 0 auto;
+            animation: spin 1s linear infinite;
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        /* Password toggle */
-        .password-toggle {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
+        /* Comments Section */
+        .comments-section {
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100vh;
+            width: 350px;
+            background: rgba(0, 0, 0, 0.9);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1500;
+            overflow-y: auto;
+        }
+
+        .comments-section.active {
+            transform: translateX(0);
+        }
+
+        .comments-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-comments {
             background: none;
             border: none;
-            color: rgba(255, 255, 255, 0.6);
+            color: white;
+            font-size: 20px;
             cursor: pointer;
+        }
+
+        .comments-list {
+            padding: 20px;
+        }
+
+        .comment {
+            margin-bottom: 15px;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .comment-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .comment-username {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .comment-text {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.4;
+        }
+
+        .comment-time {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-left: auto;
+        }
+
+        /* Add Comment */
+        .add-comment {
+            position: fixed;
+            bottom: 60px;
+            left: 0;
+            right: 0;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comment-input {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 25px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .comment-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .send-comment {
+            background: #ff0050;
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .search-bar {
+                max-width: 150px;
+            }
+            
+            .comments-section {
+                width: 100%;
+            }
+            
+            .video-overlay {
+                padding: 15px;
+            }
+            
+            .interaction-bar {
+                right: 10px;
+                bottom: 80px;
+            }
+        }
+
+        /* Swipe Gestures */
+        .swipe-hint {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 2000;
+            display: none;
+        }
+
+        .swipe-hint.active {
+            display: block;
         }
     </style>
 </head>
 <body>
-    <div class="particles" id="particles"></div>
-    
-    <div class="login-container">
-        <div class="logo">🔒</div>
-        <h1>Portal Dimensional</h1>
-        <p class="subtitle">Accede a tu universo personal</p>
-        
-        <div class="message" id="message"></div>
-        
-        <form id="loginForm">
-            <div class="form-group">
-                <span class="input-icon">👤</span>
-                <input type="email" id="email" class="input-field" placeholder="Correo electrónico" required>
-            </div>
-            
-            <div class="form-group">
-                <span class="input-icon">🔑</span>
-                <input type="password" id="password" class="input-field" placeholder="Contraseña" required>
-                <button type="button" class="password-toggle" id="togglePassword">👁️</button>
-            </div>
-            
-            <button type="submit" class="login-btn" id="loginBtn">
-                <span id="btnText">Iniciar Sesión</span>
-                <div class="spinner" id="spinner"></div>
-            </button>
-        </form>
-        
-        <div class="links">
-            <a href="#" class="link" id="forgotPassword">¿Olvidaste tu contraseña?</a>
-            <a href="#" class="link" id="signup">Crear cuenta</a>
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">VibeTok</div>
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Buscar...">
         </div>
-        
-        <div class="social-login">
-            <div class="social-title">O inicia con</div>
-            <div class="social-buttons">
-                <button class="social-btn google" title="Google">G</button>
-                <button class="social-btn github" title="GitHub">GH</button>
-                <button class="social-btn microsoft" title="Microsoft">M</button>
+        <div class="header-actions">
+            <button class="header-btn">🔔</button>
+            <button class="header-btn">💬</button>
+        </div>
+    </div>
+
+    <!-- App Container -->
+    <div class="app">
+        <!-- Video Feed -->
+        <div class="video-feed" id="videoFeed">
+            <!-- Video 1 -->
+            <div class="video-container active">
+                <video class="video-player" autoplay muted loop>
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-girl-in-neon-sign-1232-large.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">
+                    <div class="user-info">
+                        <img src="https://picsum.photos/100/100?random=1" alt="Avatar" class="avatar">
+                        <div class="username">@creative_mind</div>
+                        <button class="follow-btn">Seguir</button>
+                    </div>
+                    <div class="video-content">
+                        <h3>¡Nueva coreografía! 🕺✨ #dance #viral #trending</h3>
+                        <div class="hashtags">
+                            <a href="#" class="hashtag">#dance</a>
+                            <a href="#" class="hashtag">#viral</a>
+                            <a href="#" class="hashtag">#trending</a>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <!-- Video 2 -->
+            <div class="video-container">
+                <video class="video-player" autoplay muted loop>
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-man-playing-guitar-while-singing-1241-large.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">
+                    <div class="user-info">
+                        <img src="https://picsum.photos/100/100?random=2" alt="Avatar" class="avatar">
+                        <div class="username">@music_lover</div>
+                        <button class="follow-btn">Seguir</button>
+                    </div>
+                    <div class="video-content">
+                        <h3>Nueva canción original 🎵 #music #original #singer</h3>
+                        <div class="hashtags">
+                            <a href="#" class="hashtag">#music</a>
+                            <a href="#" class="hashtag">#original</a>
+                            <a href="#" class="hashtag">#singer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 3 -->
+            <div class="video-container">
+                <video class="video-player" autoplay muted loop>
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-chef-cooking-sauce-in-a-kitchen-1240-large.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">
+                    <div class="user-info">
+                        <img src="https://picsum.photos/100/100?random=3" alt="Avatar" class="avatar">
+                        <div class="username">@chef_master</div>
+                        <button class="follow-btn">Seguir</button>
+                    </div>
+                    <div class="video-content">
+                        <h3>Receta secreta revelada! 👨‍🍳 #cooking #food #recipe</h3>
+                        <div class="hashtags">
+                            <a href="#" class="hashtag">#cooking</a>
+                            <a href="#" class="hashtag">#food</a>
+                            <a href="#" class="hashtag">#recipe</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interaction Bar -->
+        <div class="interaction-bar">
+            <div class="interaction-item" onclick="likeVideo(this)">
+                <div class="interaction-icon">❤️</div>
+                <div class="interaction-count">12.5K</div>
+            </div>
+            <div class="interaction-item" onclick="showComments()">
+                <div class="interaction-icon">💬</div>
+                <div class="interaction-count">892</div>
+            </div>
+            <div class="interaction-item">
+                <div class="interaction-icon">🔄</div>
+                <div class="interaction-count">3.2K</div>
+            </div>
+            <div class="interaction-item">
+                <div class="interaction-icon">🔖</div>
+                <div class="interaction-count">Save</div>
+            </div>
+        </div>
+
+        <!-- Recording Button -->
+        <div class="record-btn" onclick="showRecordHint()">
+            <span style="font-size: 24px;">+</span>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="comments-section" id="commentsSection">
+            <div class="comments-header">
+                <h3>Comentarios (892)</h3>
+                <button class="close-comments" onclick="hideComments()">×</button>
+            </div>
+            <div class="comments-list">
+                <div class="comment">
+                    <div class="comment-header">
+                        <img src="https://picsum.photos/60/60?random=4" alt="Avatar" class="comment-avatar">
+                        <div class="comment-username">@user123</div>
+                        <div class="comment-time">2h</div>
+                    </div>
+                    <div class="comment-text">¡Increíble coreografía! Me encantó 😍</div>
+                </div>
+                <div class="comment">
+                    <div class="comment-header">
+                        <img src="https://picsum.photos/60/60?random=5" alt="Avatar" class="comment-avatar">
+                        <div class="comment-username">@dance_fan</div>
+                        <div class="comment-time">1h</div>
+                    </div>
+                    <div class="comment-text">¿Dónde aprendiste esos pasos? Quiero aprender!</div>
+                </div>
+                <div class="comment">
+                    <div class="comment-header">
+                        <img src="https://picsum.photos/60/60?random=6" alt="Avatar" class="comment-avatar">
+                        <div class="comment-username">@creative_mind</div>
+                        <div class="comment-time">45m</div>
+                    </div>
+                    <div class="comment-text">Gracias a todos! Pronto subiré un tutorial 🙌</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Comment -->
+        <div class="add-comment">
+            <input type="text" class="comment-input" placeholder="Añadir comentario...">
+            <button class="send-comment">➤</button>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <div class="nav-icon">🏠</div>
+                <div>Inicio</div>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">🔍</div>
+                <div>Descubrir</div>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">➕</div>
+                <div>Crear</div>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">💬</div>
+                <div>Buzón</div>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">👤</div>
+                <div>Perfil</div>
+            </a>
+        </div>
+
+        <!-- Swipe Hint -->
+        <div class="swipe-hint" id="swipeHint">
+            <h3>Desliza hacia arriba/abajo</h3>
+            <p>para cambiar de video</p>
         </div>
     </div>
 
     <script>
-        // Crear partículas
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 30;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                particle.style.left = Math.random() * 100 + 'vw';
-                particle.style.top = Math.random() * 100 + 'vh';
-                particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
-                particle.style.animationDelay = Math.random() * 5 + 's';
-                particle.style.width = (Math.random() * 3 + 1) + 'px';
-                particle.style.height = particle.style.width;
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
+        // Variables globales
+        let currentVideoIndex = 0;
+        const videos = document.querySelectorAll('.video-container');
+        let startY = 0;
+        let currentY = 0;
+        let isSwiping = false;
 
-        // Toggle password visibility
-        function setupPasswordToggle() {
-            const togglePassword = document.getElementById('togglePassword');
-            const password = document.getElementById('password');
-            
-            togglePassword.addEventListener('click', function() {
-                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-                password.setAttribute('type', type);
-                this.textContent = type === 'password' ? '👁️' : '🔒';
-            });
-        }
-
-        // Mostrar mensajes
-        function showMessage(text, type) {
-            const messageDiv = document.getElementById('message');
-            messageDiv.textContent = text;
-            messageDiv.className = 'message ' + type;
-            messageDiv.style.display = 'block';
-            
+        // Ocultar loading screen
+        window.addEventListener('load', function() {
             setTimeout(() => {
-                messageDiv.style.display = 'none';
-            }, 5000);
-        }
+                document.getElementById('loading').style.display = 'none';
+                showSwipeHint();
+            }, 2000);
+        });
 
-        // Simular login
-        function simulateLogin(email, password) {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    // Usuarios de demostración
-                    const demoUsers = [
-                        { email: 'admin@demo.com', password: 'admin123' },
-                        { email: 'user@demo.com', password: 'user123' }
-                    ];
-                    
-                    const user = demoUsers.find(u => u.email === email && u.password === password);
-                    
-                    if (user) {
-                        resolve({ success: true, message: '¡Bienvenido! Redirigiendo...' });
-                    } else {
-                        resolve({ success: false, message: 'Credenciales incorrectas. Prueba: admin@demo.com / admin123' });
-                    }
-                }, 2000);
-            });
-        }
-
-        // Manejar formulario de login
-        async function handleLogin(e) {
-            e.preventDefault();
+        // Función para cambiar de video
+        function changeVideo(direction) {
+            // Ocultar video actual
+            videos[currentVideoIndex].classList.remove('active');
             
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const loginBtn = document.getElementById('loginBtn');
-            const btnText = document.getElementById('btnText');
-            const spinner = document.getElementById('spinner');
-            
-            // Validar campos
-            if (!email || !password) {
-                showMessage('Por favor completa todos los campos', 'error');
-                return;
+            // Calcular nuevo índice
+            if (direction === 'up') {
+                currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+            } else {
+                currentVideoIndex = (currentVideoIndex - 1 + videos.length) % videos.length;
             }
             
-            // Mostrar loading
-            btnText.style.display = 'none';
-            spinner.style.display = 'block';
-            loginBtn.disabled = true;
+            // Mostrar nuevo video
+            videos[currentVideoIndex].classList.add('active');
+        }
+
+        // Gestos de swipe
+        document.addEventListener('touchstart', handleTouchStart, false);
+        document.addEventListener('touchmove', handleTouchMove, false);
+        document.addEventListener('touchend', handleTouchEnd, false);
+
+        // Para mouse también
+        document.addEventListener('mousedown', handleMouseDown, false);
+        document.addEventListener('mousemove', handleMouseMove, false);
+        document.addEventListener('mouseup', handleMouseUp, false);
+
+        function handleTouchStart(e) {
+            startY = e.touches[0].clientY;
+            isSwiping = true;
+        }
+
+        function handleTouchMove(e) {
+            if (!isSwiping) return;
+            currentY = e.touches[0].clientY;
+        }
+
+        function handleTouchEnd() {
+            if (!isSwiping) return;
             
-            try {
-                const result = await simulateLogin(email, password);
-                
-                if (result.success) {
-                    showMessage(result.message, 'success');
-                    // En una implementación real, aquí redirigirías a otra página
-                    // window.location.href = '/dashboard';
-                    
-                    // Para demo, simulamos redirección
-                    setTimeout(() => {
-                        document.body.innerHTML = `
-                            <div style="
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                height: 100vh;
-                                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                                color: white;
-                                text-align: center;
-                                font-family: Arial, sans-serif;
-                            ">
-                                <div>
-                                    <h1 style="font-size: 3rem; margin-bottom: 20px;">🎉</h1>
-                                    <h2>¡Acceso Concedido!</h2>
-                                    <p>Bienvenido al Portal Dimensional</p>
-                                    <button onclick="location.reload()" style="
-                                        margin-top: 20px;
-                                        padding: 15px 30px;
-                                        background: rgba(255,255,255,0.2);
-                                        border: 1px solid rgba(255,255,255,0.3);
-                                        border-radius: 50px;
-                                        color: white;
-                                        cursor: pointer;
-                                        font-size: 16px;
-                                    ">Volver al Login</button>
-                                </div>
-                            </div>
-                        `;
-                    }, 2000);
+            const diffY = startY - currentY;
+            const threshold = 50;
+            
+            if (Math.abs(diffY) > threshold) {
+                if (diffY > 0) {
+                    changeVideo('up');
                 } else {
-                    showMessage(result.message, 'error');
+                    changeVideo('down');
                 }
-            } catch (error) {
-                showMessage('Error en la conexión. Inténtalo de nuevo.', 'error');
-            } finally {
-                // Ocultar loading
-                btnText.style.display = 'block';
-                spinner.style.display = 'none';
-                loginBtn.disabled = false;
+            }
+            
+            isSwiping = false;
+        }
+
+        function handleMouseDown(e) {
+            startY = e.clientY;
+            isSwiping = true;
+        }
+
+        function handleMouseMove(e) {
+            if (!isSwiping) return;
+            currentY = e.clientY;
+        }
+
+        function handleMouseUp() {
+            if (!isSwiping) return;
+            
+            const diffY = startY - currentY;
+            const threshold = 50;
+            
+            if (Math.abs(diffY) > threshold) {
+                if (diffY > 0) {
+                    changeVideo('up');
+                } else {
+                    changeVideo('down');
+                }
+            }
+            
+            isSwiping = false;
+        }
+
+        // Funciones de interacción
+        function likeVideo(element) {
+            const icon = element.querySelector('.interaction-icon');
+            const count = element.querySelector('.interaction-count');
+            
+            if (icon.textContent === '❤️') {
+                icon.textContent = '❤️';
+                icon.style.background = 'rgba(255, 0, 80, 0.2)';
+                // Incrementar contador (simulado)
+                const currentCount = parseFloat(count.textContent);
+                count.textContent = (currentCount + 1) + 'K';
+            } else {
+                icon.textContent = '❤️';
+                icon.style.background = 'rgba(255, 255, 255, 0.1)';
             }
         }
 
-        // Configurar eventos
-        function setupEventListeners() {
-            const loginForm = document.getElementById('loginForm');
-            const forgotPassword = document.getElementById('forgotPassword');
-            const signup = document.getElementById('signup');
-            const socialButtons = document.querySelectorAll('.social-btn');
-            
-            loginForm.addEventListener('submit', handleLogin);
-            
-            forgotPassword.addEventListener('click', function(e) {
-                e.preventDefault();
-                showMessage('Función de recuperación de contraseña simulada', 'success');
-            });
-            
-            signup.addEventListener('click', function(e) {
-                e.preventDefault();
-                showMessage('Función de registro simulada. Prueba con: admin@demo.com / admin123', 'success');
-            });
-            
-            socialButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const platform = this.title;
-                    showMessage(`Iniciando sesión con ${platform}... (simulado)`, 'success');
-                });
-            });
+        // Comentarios
+        function showComments() {
+            document.getElementById('commentsSection').classList.add('active');
         }
 
-        // Inicializar cuando la página carga
-        document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
-            setupPasswordToggle();
-            setupEventListeners();
-            
-            // Efecto 3D en el contenedor
-            document.addEventListener('mousemove', (e) => {
-                const container = document.querySelector('.login-container');
-                const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
-                const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
-                
-                container.style.transform = `perspective(1000px) rotateY(${xAxis}deg) rotateX(${-yAxis}deg)`;
+        function hideComments() {
+            document.getElementById('commentsSection').classList.remove('active');
+        }
+
+        // Grabación
+        function showRecordHint() {
+            alert('¡Función de grabación disponible pronto!\nEn la versión completa podrás crear tus propios videos.');
+        }
+
+        // Hint de swipe
+        function showSwipeHint() {
+            const hint = document.getElementById('swipeHint');
+            hint.classList.add('active');
+            setTimeout(() => {
+                hint.classList.remove('active');
+            }, 3000);
+        }
+
+        // Seguimiento de usuarios
+        document.querySelectorAll('.follow-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.textContent === 'Seguir') {
+                    this.textContent = 'Siguiendo';
+                    this.style.background = '#4CAF50';
+                } else {
+                    this.textContent = 'Seguir';
+                    this.style.background = '#ff0050';
+                }
             });
+        });
+
+        // Búsqueda
+        document.querySelector('.search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                alert('Buscando: ' + this.value);
+                this.value = '';
+            }
+        });
+
+        // Comentarios
+        document.querySelector('.send-comment').addEventListener('click', function() {
+            const input = document.querySelector('.comment-input');
+            if (input.value.trim()) {
+                alert('Comentario enviado: ' + input.value);
+                input.value = '';
+            }
+        });
+
+        // Navegación
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+
+        // Reproducir videos cuando están visibles
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const video = entry.target.querySelector('video');
+                if (entry.isIntersecting) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            });
+        });
+
+        videos.forEach(video => {
+            observer.observe(video);
+        });
+
+        // Efecto parallax en el header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            const scrollY = window.scrollY;
+            header.style.transform = `translateY(${-scrollY * 0.5}px)`;
         });
     </script>
 </body>
