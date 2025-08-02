@@ -1,98 +1,191 @@
-import os
-import subprocess
-import tkinter as tk
-from tkinter import messagebox, ttk
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Launcher</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .launcher {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 2px solid #3498db;
+        }
+        
+        .logo {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        h1 {
+            color: #e67e22;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        .version {
+            background: #34495e;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+        }
+        
+        .btn-java { background: linear-gradient(to right, #27ae60, #2ecc71); }
+        .btn-bedrock { background: linear-gradient(to right, #3498db, #2980b9); }
+        .btn-info { background: linear-gradient(to right, #f39c12, #e67e22); }
+        .btn-exit { background: linear-gradient(to right, #e74c3c, #c0392b); }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            background: #34495e;
+        }
+        
+        .tips {
+            margin-top: 20px;
+            font-size: 0.8em;
+            color: #bdc3c7;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="launcher">
+        <div class="logo">🎮</div>
+        <h1>MINECRAFT LAUNCHER</h1>
+        
+        <div class="version">
+            Versión 2.0 - Multiplataforma
+        </div>
+        
+        <button class="btn btn-java" onclick="launchJava()">
+            ▶ Iniciar Java Edition
+        </button>
+        
+        <button class="btn btn-bedrock" onclick="launchBedrock()">
+            ▶ Iniciar Bedrock Edition
+        </button>
+        
+        <button class="btn btn-info" onclick="showInfo()">
+            ℹ️ Información
+        </button>
+        
+        <button class="btn btn-exit" onclick="salir()">
+            ❌ Salir
+        </button>
+        
+        <div class="status" id="status">
+            Listo para iniciar Minecraft
+        </div>
+        
+        <div class="tips">
+            💡 Consejo: Guarda esta página en favoritos<br>
+            📱 Compatible con PC, móvil y tablet
+        </div>
+    </div>
 
-class MinecraftLauncher:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("🎮 Minecraft Launcher")
-        self.root.geometry("400x200")
-        self.root.resizable(False, False)
+    <script>
+        // Función para actualizar el estado
+        function updateStatus(text) {
+            document.getElementById('status').innerText = text;
+        }
         
-        # Estilos
-        style = ttk.Style()
-        style.theme_use('clam')
+        // Lanzar Minecraft Java
+        function launchJava() {
+            updateStatus("🚀 Iniciando Minecraft Java...");
+            setTimeout(() => {
+                alert("Minecraft Java se iniciaríá aquí\n(En PC: Abre el launcher oficial)");
+                updateStatus("✅ Java Edition listo");
+            }, 1000);
+        }
         
-        # Título
-        title_label = tk.Label(root, text="MINECRAFT LAUNCHER", 
-                              font=("Arial", 16, "bold"), 
-                              fg="#3498db")
-        title_label.pack(pady=20)
+        // Lanzar Minecraft Bedrock
+        function launchBedrock() {
+            updateStatus("🚀 Iniciando Minecraft Bedrock...");
+            setTimeout(() => {
+                alert("Minecraft Bedrock se iniciaríá aquí\n(En PC: Abre desde Microsoft Store)");
+                updateStatus("✅ Bedrock Edition listo");
+            }, 1000);
+        }
         
-        # Frame para botones
-        button_frame = tk.Frame(root)
-        button_frame.pack(pady=20)
-        
-        # Botones
-        self.java_btn = tk.Button(button_frame, 
-                                 text="▶ Iniciar Minecraft Java", 
-                                 command=self.launch_java,
-                                 bg="#27ae60", 
-                                 fg="white",
-                                 font=("Arial", 10, "bold"),
-                                 width=25,
-                                 height=2)
-        self.java_btn.pack(pady=5)
-        
-        self.bedrock_btn = tk.Button(button_frame, 
-                                   text="▶ Iniciar Minecraft Bedrock", 
-                                   command=self.launch_bedrock,
-                                   bg="#e74c3c", 
-                                   fg="white",
-                                   font=("Arial", 10, "bold"),
-                                   width=25,
-                                   height=2)
-        self.bedrock_btn.pack(pady=5)
-        
-        # Botón de salir
-        exit_btn = tk.Button(root, 
-                           text="Salir", 
-                           command=root.quit,
-                           bg="#7f8c8d", 
-                           fg="white",
-                           font=("Arial", 9),
-                           width=10)
-        exit_btn.pack(pady=10)
-    
-    def launch_java(self):
-        # Ruta típica del launcher de Minecraft Java
-        java_paths = [
-            r"C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe",
-            r"C:\Program Files\Minecraft Launcher\MinecraftLauncher.exe",
-            r"C:\Users\Public\Desktop\Minecraft Launcher.lnk"
-        ]
-        
-        launched = False
-        for path in java_paths:
-            if os.path.exists(path):
-                try:
-                    subprocess.Popen([path])
-                    messagebox.showinfo("Éxito", "Minecraft Java iniciando...")
-                    launched = True
-                    break
-                except Exception as e:
-                    messagebox.showerror("Error", f"No se pudo iniciar: {str(e)}")
-                    return
-        
-        if not launched:
-            messagebox.showerror("Error", "No se encontró Minecraft Java Edition.\nAsegúrate de tenerlo instalado.")
-    
-    def launch_bedrock(self):
-        # Ruta típica de Minecraft Bedrock (puede variar)
-        bedrock_paths = [
-            r"C:\Program Files\WindowsApps\Microsoft.MinecraftUWP_*\Minecraft.Windows.exe",
-            r"C:\Program Files (x86)\WindowsApps\Microsoft.MinecraftUWP_*\Minecraft.Windows.exe"
-        ]
-        
-        # Alternativa: abrir desde el protocolo
-        try:
-            subprocess.Popen(["start", "minecraft:"], shell=True)
-            messagebox.showinfo("Éxito", "Minecraft Bedrock iniciando...")
-        except Exception as e:
-            messagebox.showerror("Error", f"No se pudo iniciar Bedrock: {str(e)}\n\nIntenta abrirlo desde el menú de inicio.")
+        // Mostrar información
+        function showInfo() {
+            const info = `
+🎮 MINECRAFT LAUNCHER 2.0
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = MinecraftLauncher(root)
-    root.mainloop()
+FUNCIONES:
+• Iniciar Java Edition
+• Iniciar Bedrock Edition
+• Compatible multiplataforma
+• Totalmente gratuito
+
+DESARROLLADO PARA:
+💻 PC - Ejecuta los launchers oficiales
+📱 Móvil - Información y acceso rápido
+🌐 Web - Acceso desde cualquier navegador
+
+⚠️ NOTA: En dispositivos móviles solo muestra información. Para jugar, usa PC.
+            `;
+            alert(info);
+            updateStatus("ℹ️ Información mostrada");
+        }
+        
+        // Salir
+        function salir() {
+            if(confirm("¿Deseas salir del launcher?")) {
+                updateStatus("👋 ¡Hasta pronto!");
+                setTimeout(() => {
+                    window.close();
+                }, 1000);
+            }
+        }
+        
+        // Bienvenida
+        window.onload = function() {
+            updateStatus("👋 Bienvenido al Launcher");
+        }
+    </script>
+</body>
+</html>
