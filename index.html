@@ -144,16 +144,6 @@
             100% { opacity: 0.7; }
         }
 
-        .matrix-effect {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            opacity: 0.3;
-        }
-
         .success {
             color: #00ff00;
             font-size: 1.8em;
@@ -238,12 +228,71 @@
             95% { clip: rect(42px, 9999px, 97px, 0); }
             100% { clip: rect(38px, 9999px, 49px, 0); }
         }
+
+        /* Estilo para la aplicación del mono */
+        .monkey-app {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .monkey-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .monkey {
+            font-size: 8em;
+            margin: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-30px); }
+            60% { transform: translateY(-15px); }
+        }
+
+        .message-display {
+            font-size: 1.5em;
+            margin: 20px 0;
+            min-height: 60px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .warning {
+            color: #ff6b6b;
+            font-size: 2em;
+            text-align: center;
+            margin: 20px;
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
     </style>
 </head>
 <body>
     <div class="terminal">
-        <div class="matrix-effect" id="matrix"></div>
-        
         <div class="header">
             <h1 class="glitch" data-text="SISTEMA DE SEGURIDAD">SISTEMA DE SEGURIDAD</h1>
         </div>
@@ -273,44 +322,36 @@
         </div>
     </div>
 
+    <!-- Aplicación del Mono -->
+    <div class="monkey-app" id="monkeyApp">
+        <div class="warning">⚠️ SISTEMA COMPROMETIDO ⚠️</div>
+        <div class="monkey-container">
+            <div class="monkey">🐵</div>
+            <div class="message-display" id="messageDisplay">
+                ¡Hola! Soy tu nuevo amigo mono hacker!
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Efecto Matrix
-        function createMatrix() {
-            const matrix = document.getElementById('matrix');
-            const chars = "01";
-            const fontSize = 14;
-            const columns = Math.floor(window.innerWidth / fontSize);
-            
-            for (let i = 0; i < columns; i++) {
-                const drop = document.createElement('div');
-                drop.style.position = 'absolute';
-                drop.style.top = '-20px';
-                drop.style.left = (i * fontSize) + 'px';
-                drop.style.width = fontSize + 'px';
-                drop.style.height = '20px';
-                drop.style.color = '#00ff00';
-                drop.style.fontSize = fontSize + 'px';
-                drop.style.fontFamily = 'monospace';
-                drop.style.textAlign = 'center';
-                drop.innerHTML = chars.charAt(Math.floor(Math.random() * chars.length));
-                matrix.appendChild(drop);
-                
-                let position = -20;
-                const speed = Math.random() * 3 + 2;
-                
-                function animate() {
-                    position += speed;
-                    if (position > window.innerHeight) {
-                        position = -20;
-                    }
-                    drop.style.top = position + 'px';
-                    drop.innerHTML = chars.charAt(Math.floor(Math.random() * chars.length));
-                    requestAnimationFrame(animate);
-                }
-                
-                animate();
-            }
-        }
+        // Mensajes aleatorios para el mono
+        const monkeyMessages = [
+            "¡Ja ja! ¡Te tengo!",
+            "Tu sistema es mío ahora!",
+            "¿Buscabas seguridad? ¡Ja!",
+            "Los monos somos mejores que los humanos",
+            "¡Hackeado por un mono! ¿Quién lo hubiera dicho?",
+            "Tu contraseña era '123456' ¿verdad?",
+            "Estoy comiendo plátanos... y hackeando",
+            "¡Los monos nunca fallamos!",
+            "¿Necesitas ayuda? ¡Soy un mono hacker!",
+            "Tu firewall es como una banana... fácil de romper",
+            "¡Alerta! ¡Alerta! ¡Mono hacker en el sistema!",
+            "Estoy más ocupado que un mono con un millón de plátanos",
+            "Tu antivirus no sirve contra monos inteligentes",
+            "¡Hackeado en menos de 5 minutos!",
+            "Los monos dominaremos el mundo digital"
+        ];
 
         // Simulación de hackeo
         function simulateHack() {
@@ -336,7 +377,10 @@
                 "> Backdoor instalado en puerto 1337",
                 "> Limpiando logs de acceso...",
                 "> Logs eliminados exitosamente",
-                "> Sistema comprometido"
+                "> Sistema comprometido",
+                "> Cerrando Chrome...",
+                "> Chrome cerrado exitosamente",
+                "> Iniciando aplicación del mono..."
             ];
             
             function addConsoleMessage(msg) {
@@ -383,19 +427,40 @@
                     hackText.style.display = "block";
                     success.style.display = "block";
                     
-                    // Efecto de sonido final (simulado)
-                    console.log("%c¡SISTEMA HACKED!", "color: #ff0000; font-size: 20px; font-weight: bold;");
-                    console.log("%cAcceso total al sistema obtenido", "color: #00ff00;");
+                    // Simular cierre de Chrome y apertura de la app del mono
+                    setTimeout(showMonkeyApp, 3000);
                 }
             }
             
             updateProgress();
         }
 
+        // Mostrar la aplicación del mono
+        function showMonkeyApp() {
+            document.querySelector('.terminal').style.display = 'none';
+            document.getElementById('monkeyApp').style.display = 'flex';
+            
+            // Cambiar mensajes aleatorios
+            setInterval(changeMonkeyMessage, 3000);
+        }
+
+        // Cambiar mensaje del mono
+        function changeMonkeyMessage() {
+            const messageDisplay = document.getElementById('messageDisplay');
+            const randomMessage = monkeyMessages[Math.floor(Math.random() * monkeyMessages.length)];
+            messageDisplay.textContent = randomMessage;
+        }
+
         // Iniciar cuando la página cargue
         window.addEventListener('load', function() {
-            createMatrix();
             setTimeout(simulateHack, 2000);
+        });
+
+        // Prevenir cierre de la pestaña
+        window.addEventListener('beforeunload', function(e) {
+            e.preventDefault();
+            e.returnValue = '';
+            return '¿Seguro que quieres salir? ¡El mono te necesita!';
         });
     </script>
 </body>
