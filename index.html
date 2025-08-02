@@ -4,86 +4,399 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Punto Movil y Barra de Carga</title>
+    <title>Sistema de Seguridad</title>
     <style>
         body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
         }
 
-        .container {
+        .terminal {
+            width: 90%;
+            max-width: 800px;
+            height: 80vh;
+            background-color: rgba(0, 20, 0, 0.8);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px #00ff00, inset 0 0 10px #00ff00;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .terminal::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px);
+            background-size: 100% 20px;
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+
+        .header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #00ff00;
+            padding-bottom: 15px;
         }
 
         h1 {
-            color: #333;
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+            font-size: 2em;
+            margin: 0;
         }
 
-        /* Estilo para el punto verde */
-        .moving-dot {
-            width: 30px;
-            height: 30px;
-            background-color: #4CAF50;
-            border-radius: 50%;
-            position: relative;
-            animation: moveDot 3s infinite alternate ease-in-out;
-            box-shadow: 0 0 10px rgba(76, 175, 80, 0.7);
+        .content {
+            margin: 20px 0;
         }
 
-        @keyframes moveDot {
-            0% { left: -150px; }
-            100% { left: 150px; }
+        .status {
+            font-size: 1.2em;
+            margin: 15px 0;
+            text-align: center;
         }
 
-        /* Estilo para la barra de carga */
         .progress-container {
-            width: 300px;
-            height: 20px;
-            background-color: #ddd;
-            border-radius: 10px;
-            margin-top: 30px;
+            width: 100%;
+            height: 25px;
+            background-color: #001100;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            margin: 20px 0;
             overflow: hidden;
         }
 
         .progress-bar {
             height: 100%;
             width: 0%;
-            background-color: #4CAF50;
-            border-radius: 10px;
-            animation: loadProgress 5s infinite;
+            background: linear-gradient(90deg, #00ff00, #008800);
+            border-radius: 3px;
+            transition: width 0.3s ease;
         }
 
-        @keyframes loadProgress {
-            0% { width: 0%; }
-            100% { width: 100%; }
+        .moving-dot {
+            width: 20px;
+            height: 20px;
+            background-color: #00ff00;
+            border-radius: 50%;
+            margin: 30px auto;
+            box-shadow: 0 0 15px #00ff00;
+            position: relative;
+            animation: moveDot 2s infinite alternate ease-in-out;
         }
 
-        .loading-text {
-            margin-top: 10px;
-            color: #666;
-            font-weight: bold;
+        @keyframes moveDot {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(100px); }
+        }
+
+        .console {
+            height: 200px;
+            overflow-y: auto;
+            background-color: rgba(0, 15, 0, 0.5);
+            border: 1px solid #00aa00;
+            padding: 10px;
+            font-size: 0.9em;
+            margin: 20px 0;
+        }
+
+        .console-line {
+            margin: 5px 0;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hack-text {
+            text-align: center;
+            font-size: 1.5em;
+            color: #ff0000;
+            text-shadow: 0 0 10px #ff0000;
+            margin: 20px 0;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        .matrix-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .success {
+            color: #00ff00;
+            font-size: 1.8em;
+            text-align: center;
+            margin-top: 20px;
+            text-shadow: 0 0 15px #00ff00;
+            display: none;
+        }
+
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(42px, 9999px, 44px, 0); }
+            5% { clip: rect(12px, 9999px, 59px, 0); }
+            10% { clip: rect(48px, 9999px, 29px, 0); }
+            15% { clip: rect(42px, 9999px, 73px, 0); }
+            20% { clip: rect(63px, 9999px, 27px, 0); }
+            25% { clip: rect(34px, 9999px, 55px, 0); }
+            30% { clip: rect(86px, 9999px, 73px, 0); }
+            35% { clip: rect(20px, 9999px, 20px, 0); }
+            40% { clip: rect(26px, 9999px, 60px, 0); }
+            45% { clip: rect(25px, 9999px, 66px, 0); }
+            50% { clip: rect(57px, 9999px, 98px, 0); }
+            55% { clip: rect(5px, 9999px, 46px, 0); }
+            60% { clip: rect(82px, 9999px, 31px, 0); }
+            65% { clip: rect(54px, 9999px, 27px, 0); }
+            70% { clip: rect(28px, 9999px, 99px, 0); }
+            75% { clip: rect(45px, 9999px, 69px, 0); }
+            80% { clip: rect(23px, 9999px, 85px, 0); }
+            85% { clip: rect(1px, 9999px, 83px, 0); }
+            90% { clip: rect(72px, 9999px, 11px, 0); }
+            95% { clip: rect(60px, 9999px, 89px, 0); }
+            100% { clip: rect(52px, 9999px, 74px, 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            5% { clip: rect(52px, 9999px, 74px, 0); }
+            10% { clip: rect(79px, 9999px, 85px, 0); }
+            15% { clip: rect(75px, 9999px, 5px, 0); }
+            20% { clip: rect(67px, 9999px, 61px, 0); }
+            25% { clip: rect(14px, 9999px, 79px, 0); }
+            30% { clip: rect(1px, 9999px, 66px, 0); }
+            35% { clip: rect(86px, 9999px, 30px, 0); }
+            40% { clip: rect(23px, 9999px, 98px, 0); }
+            45% { clip: rect(85px, 9999px, 72px, 0); }
+            50% { clip: rect(71px, 9999px, 75px, 0); }
+            55% { clip: rect(2px, 9999px, 48px, 0); }
+            60% { clip: rect(30px, 9999px, 16px, 0); }
+            65% { clip: rect(59px, 9999px, 50px, 0); }
+            70% { clip: rect(41px, 9999px, 62px, 0); }
+            75% { clip: rect(2px, 9999px, 82px, 0); }
+            80% { clip: rect(47px, 9999px, 73px, 0); }
+            85% { clip: rect(3px, 9999px, 27px, 0); }
+            90% { clip: rect(26px, 9999px, 55px, 0); }
+            95% { clip: rect(42px, 9999px, 97px, 0); }
+            100% { clip: rect(38px, 9999px, 49px, 0); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Cargando...</h1>
+    <div class="terminal">
+        <div class="matrix-effect" id="matrix"></div>
         
-        <!-- Punto verde movil -->
-        <div class="moving-dot"></div>
-        
-        <!-- Barra de progreso -->
-        <div class="progress-container">
-            <div class="progress-bar"></div>
+        <div class="header">
+            <h1 class="glitch" data-text="SISTEMA DE SEGURIDAD">SISTEMA DE SEGURIDAD</h1>
         </div>
-        <div class="loading-text">Procesando datos...</div>
+
+        <div class="content">
+            <div class="status" id="status">INICIANDO PROCESO DE SEGURIDAD...</div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            
+            <div class="moving-dot"></div>
+            
+            <div class="console" id="console">
+                <div class="console-line">> Iniciando protocolo de seguridad...</div>
+                <div class="console-line">> Verificando credenciales...</div>
+                <div class="console-line">> Conectando a servidores...</div>
+            </div>
+            
+            <div class="hack-text" id="hackText" style="display: none;">
+                ¡SISTEMA COMPROMETIDO!
+            </div>
+            
+            <div class="success" id="success">
+                ACCESO CONCEDIDO - SISTEMA PENETRADO
+            </div>
+        </div>
     </div>
+
+    <script>
+        // Efecto Matrix
+        function createMatrix() {
+            const matrix = document.getElementById('matrix');
+            const chars = "01";
+            const fontSize = 14;
+            const columns = Math.floor(window.innerWidth / fontSize);
+            
+            for (let i = 0; i < columns; i++) {
+                const drop = document.createElement('div');
+                drop.style.position = 'absolute';
+                drop.style.top = '-20px';
+                drop.style.left = (i * fontSize) + 'px';
+                drop.style.width = fontSize + 'px';
+                drop.style.height = '20px';
+                drop.style.color = '#00ff00';
+                drop.style.fontSize = fontSize + 'px';
+                drop.style.fontFamily = 'monospace';
+                drop.style.textAlign = 'center';
+                drop.innerHTML = chars.charAt(Math.floor(Math.random() * chars.length));
+                matrix.appendChild(drop);
+                
+                let position = -20;
+                const speed = Math.random() * 3 + 2;
+                
+                function animate() {
+                    position += speed;
+                    if (position > window.innerHeight) {
+                        position = -20;
+                    }
+                    drop.style.top = position + 'px';
+                    drop.innerHTML = chars.charAt(Math.floor(Math.random() * chars.length));
+                    requestAnimationFrame(animate);
+                }
+                
+                animate();
+            }
+        }
+
+        // Simulación de hackeo
+        function simulateHack() {
+            const progressBar = document.getElementById('progressBar');
+            const status = document.getElementById('status');
+            const console = document.getElementById('console');
+            const hackText = document.getElementById('hackText');
+            const success = document.getElementById('success');
+            
+            let progress = 0;
+            const consoleMessages = [
+                "> Escaneando puertos abiertos...",
+                "> Puerto 22: SSH - Abierto",
+                "> Puerto 80: HTTP - Abierto",
+                "> Puerto 443: HTTPS - Abierto",
+                "> Identificando vulnerabilidades...",
+                "> Vulnerabilidad encontrada: SQL Injection",
+                "> Exploit cargado: sqlmap.py",
+                "> Accediendo a base de datos...",
+                "> Extrayendo credenciales...",
+                "> root:password123 - Comprometido",
+                "> Creando backdoor...",
+                "> Backdoor instalado en puerto 1337",
+                "> Limpiando logs de acceso...",
+                "> Logs eliminados exitosamente",
+                "> Sistema comprometido"
+            ];
+            
+            function addConsoleMessage(msg) {
+                const line = document.createElement('div');
+                line.className = 'console-line';
+                line.textContent = msg;
+                console.appendChild(line);
+                console.scrollTop = console.scrollHeight;
+            }
+            
+            function updateProgress() {
+                if (progress < 100) {
+                    progress += Math.random() * 5;
+                    if (progress > 100) progress = 100;
+                    
+                    progressBar.style.width = progress + '%';
+                    
+                    // Actualizar status según progreso
+                    if (progress < 30) {
+                        status.textContent = "ESCANEANDO SISTEMA...";
+                    } else if (progress < 60) {
+                        status.textContent = "IDENTIFICANDO VULNERABILIDADES...";
+                    } else if (progress < 90) {
+                        status.textContent = "EXPLOTANDO VULNERABILIDADES...";
+                        status.style.color = "#ff0000";
+                    } else {
+                        status.textContent = "SISTEMA COMPROMETIDO...";
+                    }
+                    
+                    // Agregar mensajes al azar
+                    if (Math.random() > 0.7 && consoleMessages.length > 0) {
+                        const randomIndex = Math.floor(Math.random() * consoleMessages.length);
+                        addConsoleMessage(consoleMessages[randomIndex]);
+                        consoleMessages.splice(randomIndex, 1);
+                    }
+                    
+                    setTimeout(updateProgress, 200);
+                } else {
+                    // Finalizar hackeo
+                    status.textContent = "SISTEMA PENETRADO EXITOSAMENTE";
+                    status.style.color = "#00ff00";
+                    status.style.fontSize = "1.5em";
+                    
+                    hackText.style.display = "block";
+                    success.style.display = "block";
+                    
+                    // Efecto de sonido final (simulado)
+                    console.log("%c¡SISTEMA HACKED!", "color: #ff0000; font-size: 20px; font-weight: bold;");
+                    console.log("%cAcceso total al sistema obtenido", "color: #00ff00;");
+                }
+            }
+            
+            updateProgress();
+        }
+
+        // Iniciar cuando la página cargue
+        window.addEventListener('load', function() {
+            createMatrix();
+            setTimeout(simulateHack, 2000);
+        });
+    </script>
 </body>
 </html>
