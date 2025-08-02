@@ -178,6 +178,66 @@
             background: linear-gradient(transparent, rgba(0,0,0,0.7));
         }
 
+        /* User Info */
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            border: 2px solid #ff0050;
+            object-fit: cover;
+        }
+
+        .username {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .follow-btn {
+            margin-left: auto;
+            background: #ff0050;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .follow-btn.following {
+            background: #4CAF50;
+        }
+
+        /* Video Content */
+        .video-content h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .hashtags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .hashtag {
+            color: #ff0050;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .hashtag:hover {
+            text-decoration: underline;
+        }
+
         /* Recording Screen */
         .recording-screen {
             background: #000;
@@ -256,6 +316,7 @@
             border-radius: 20px;
             color: white;
             cursor: pointer;
+            font-size: 12px;
         }
 
         .filter-btn.active {
@@ -289,6 +350,7 @@
             background: rgba(255, 0, 0, 0.2);
             padding: 5px 10px;
             border-radius: 10px;
+            margin-left: 10px;
         }
 
         .live-video {
@@ -373,6 +435,119 @@
             font-weight: bold;
         }
 
+        .interaction-item.liked .interaction-icon {
+            background: rgba(255, 0, 80, 0.2);
+        }
+
+        /* Comments Section */
+        .comments-section {
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100vh;
+            width: 350px;
+            background: rgba(0, 0, 0, 0.9);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1500;
+            overflow-y: auto;
+        }
+
+        .comments-section.active {
+            transform: translateX(0);
+        }
+
+        .comments-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-comments {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .comments-list {
+            padding: 20px;
+        }
+
+        .comment {
+            margin-bottom: 15px;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .comment-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .comment-username {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .comment-text {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.4;
+        }
+
+        .comment-time {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-left: auto;
+        }
+
+        /* Add Comment */
+        .add-comment {
+            position: fixed;
+            bottom: 60px;
+            left: 0;
+            right: 0;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .comment-input {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 25px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .comment-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .send-comment {
+            background: #ff0050;
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
         /* Loading */
         .loading {
             position: fixed;
@@ -401,33 +576,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Camera Preview */
-        #cameraPreview {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Filters */
-        .filter-none { filter: none; }
-        .filter-vintage { filter: sepia(0.5) contrast(1.2); }
-        .filter-bw { filter: grayscale(1); }
-        .filter-bright { filter: brightness(1.3); }
-        .filter-warm { filter: saturate(1.5) hue-rotate(10deg); }
-        .filter-cool { filter: saturate(1.2) hue-rotate(-20deg); }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .auth-container {
-                padding: 30px 20px;
-            }
-            
-            .interaction-bar {
-                right: 10px;
-                bottom: 80px;
-            }
-        }
-
         /* Messages */
         .message {
             position: fixed;
@@ -451,6 +599,205 @@
             from { top: -50px; opacity: 0; }
             to { top: 20px; opacity: 1; }
         }
+
+        /* Rewards System */
+        .rewards-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            z-index: 4000;
+            display: none;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .rewards-popup.show {
+            display: block;
+            animation: popup 0.5s ease;
+        }
+
+        @keyframes popup {
+            from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        .reward-coins {
+            font-size: 3rem;
+            margin: 20px 0;
+        }
+
+        .close-reward {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* Monetization */
+        .monetization-indicator {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            background: rgba(0, 255, 0, 0.2);
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: none;
+        }
+
+        .monetization-indicator.active {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Camera Preview */
+        #cameraPreview, #livePreview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Filters */
+        .filter-none { filter: none; }
+        .filter-vintage { filter: sepia(0.5) contrast(1.2); }
+        .filter-bw { filter: grayscale(1); }
+        .filter-bright { filter: brightness(1.3); }
+        .filter-warm { filter: saturate(1.5) hue-rotate(10deg); }
+        .filter-cool { filter: saturate(1.2) hue-rotate(-20deg); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .auth-container {
+                padding: 30px 20px;
+            }
+            
+            .interaction-bar {
+                right: 10px;
+                bottom: 80px;
+            }
+            
+            .comments-section {
+                width: 100%;
+            }
+        }
+
+        /* Profile Screen */
+        .profile-screen {
+            background: #000;
+            overflow-y: auto;
+        }
+
+        .profile-header {
+            padding: 30px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid white;
+            margin: 0 auto 15px;
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .profile-content {
+            padding: 20px;
+        }
+
+        .profile-tabs {
+            display: flex;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            border-bottom: 2px solid #ff0050;
+            font-weight: bold;
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+        }
+
+        .video-thumbnail {
+            aspect-ratio: 1;
+            background: #333;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .video-stats {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            color: white;
+            font-size: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        /* Recommendations */
+        .recommendations {
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -461,6 +808,27 @@
 
     <!-- Messages -->
     <div class="message" id="message"></div>
+
+    <!-- Rewards Popup -->
+    <div class="rewards-popup" id="rewardsPopup">
+        <button class="close-reward" onclick="closeRewards()">×</button>
+        <h2>¡Recompensa!</h2>
+        <div class="reward-coins">🪙 +50</div>
+        <p>Por interactuar con contenido</p>
+        <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8);">Monedas totales: <span id="totalCoins">150</span></p>
+    </div>
+
+    <!-- Monetization Indicator -->
+    <div class="monetization-indicator" id="monetizationIndicator">
+        <span>💰</span>
+        <span>Monetizado</span>
+    </div>
+
+    <!-- Recommendations -->
+    <div class="recommendations" id="recommendations" onclick="showRecommendations()">
+        <span>🤖</span>
+        <span>Para ti</span>
+    </div>
 
     <!-- Login Screen -->
     <div class="screen auth-screen active" id="loginScreen">
@@ -507,48 +875,74 @@
         <div class="header">
             <div class="logo">VibeTok</div>
             <div style="display: flex; gap: 15px;">
-                <button style="background: none; border: none; color: white; font-size: 20px;">🔍</button>
-                <button style="background: none; border: none; color: white; font-size: 20px;">💬</button>
+                <button style="background: none; border: none; color: white; font-size: 20px;" onclick="showSearch()">🔍</button>
+                <button style="background: none; border: none; color: white; font-size: 20px;" onclick="showMessages()">💬</button>
             </div>
         </div>
 
         <div class="video-feed" id="videoFeed">
             <!-- Video 1 -->
-            <div class="video-container active">
+            <div class="video-container active" data-video-id="1">
                 <video class="video-player" autoplay muted loop>
                     <source src="https://assets.mixkit.co/videos/preview/mixkit-girl-in-neon-sign-1232-large.mp4" type="video/mp4">
                 </video>
                 <div class="video-overlay">
-                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                        <img src="https://picsum.photos/50/50?random=1" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 15px; border: 2px solid #ff0050;">
-                        <div>
-                            <div style="font-weight: bold;">@creative_mind</div>
-                            <div style="font-size: 14px; color: rgba(255,255,255,0.8);">2.3M seguidores</div>
-                        </div>
-                        <button style="margin-left: auto; background: #ff0050; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold;">Seguir</button>
+                    <div class="user-info">
+                        <img src="https://picsum.photos/100/100?random=1" alt="Avatar" class="avatar">
+                        <div class="username">@creative_mind</div>
+                        <button class="follow-btn" onclick="toggleFollow(this)">Seguir</button>
                     </div>
-                    <div style="margin-bottom: 15px;">
+                    <div class="video-content">
                         <h3>¡Nueva coreografía! 🕺✨ #dance #viral #trending</h3>
+                        <div class="hashtags">
+                            <a href="#" class="hashtag">#dance</a>
+                            <a href="#" class="hashtag">#viral</a>
+                            <a href="#" class="hashtag">#trending</a>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Video 2 -->
-            <div class="video-container">
+            <div class="video-container" data-video-id="2">
                 <video class="video-player" autoplay muted loop>
                     <source src="https://assets.mixkit.co/videos/preview/mixkit-man-playing-guitar-while-singing-1241-large.mp4" type="video/mp4">
                 </video>
                 <div class="video-overlay">
-                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                        <img src="https://picsum.photos/50/50?random=2" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 15px; border: 2px solid #ff0050;">
-                        <div>
-                            <div style="font-weight: bold;">@music_lover</div>
-                            <div style="font-size: 14px; color: rgba(255,255,255,0.8);">1.8M seguidores</div>
-                        </div>
-                        <button style="margin-left: auto; background: #ff0050; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold;">Seguir</button>
+                    <div class="user-info">
+                        <img src="https://picsum.photos/100/100?random=2" alt="Avatar" class="avatar">
+                        <div class="username">@music_lover</div>
+                        <button class="follow-btn following" onclick="toggleFollow(this)">Siguiendo</button>
                     </div>
-                    <div style="margin-bottom: 15px;">
+                    <div class="video-content">
                         <h3>Nueva canción original 🎵 #music #original #singer</h3>
+                        <div class="hashtags">
+                            <a href="#" class="hashtag">#music</a>
+                            <a href="#" class="hashtag">#original</a>
+                            <a href="#" class="hashtag">#singer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 3 -->
+            <div class="video-container" data-video-id="3">
+                <video class="video-player" autoplay muted loop>
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-chef-cooking-sauce-in-a-kitchen-1240-large.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">
+                    <div class="user-info">
+                        <img src="https://picsum.photos/100/100?random=3" alt="Avatar" class="avatar">
+                        <div class="username">@chef_master</div>
+                        <button class="follow-btn" onclick="toggleFollow(this)">Seguir</button>
+                    </div>
+                    <div class="video-content">
+                        <h3>Receta secreta revelada! 👨‍🍳 #cooking #food #recipe</h3>
+                        <div class="hashtags">
+                            <a href="#" class="hashtag">#cooking</a>
+                            <a href="#" class="hashtag">#food</a>
+                            <a href="#" class="hashtag">#recipe</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -564,14 +958,58 @@
                 <div class="interaction-icon">💬</div>
                 <div class="interaction-count">892</div>
             </div>
-            <div class="interaction-item">
+            <div class="interaction-item" onclick="shareVideo()">
                 <div class="interaction-icon">🔄</div>
                 <div class="interaction-count">3.2K</div>
             </div>
-            <div class="interaction-item">
+            <div class="interaction-item" onclick="saveVideo()">
                 <div class="interaction-icon">🔖</div>
                 <div class="interaction-count">Save</div>
             </div>
+            <div class="interaction-item" onclick="showRewards()">
+                <div class="interaction-icon">🎁</div>
+                <div class="interaction-count">Reward</div>
+            </div>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="comments-section" id="commentsSection">
+            <div class="comments-header">
+                <h3>Comentarios (892)</h3>
+                <button class="close-comments" onclick="hideComments()">×</button>
+            </div>
+            <div class="comments-list" id="commentsList">
+                <div class="comment">
+                    <div class="comment-header">
+                        <img src="https://picsum.photos/60/60?random=4" alt="Avatar" class="comment-avatar">
+                        <div class="comment-username">@user123</div>
+                        <div class="comment-time">2h</div>
+                    </div>
+                    <div class="comment-text">¡Increíble coreografía! Me encantó 😍</div>
+                </div>
+                <div class="comment">
+                    <div class="comment-header">
+                        <img src="https://picsum.photos/60/60?random=5" alt="Avatar" class="comment-avatar">
+                        <div class="comment-username">@dance_fan</div>
+                        <div class="comment-time">1h</div>
+                    </div>
+                    <div class="comment-text">¿Dónde aprendiste esos pasos? Quiero aprender!</div>
+                </div>
+                <div class="comment">
+                    <div class="comment-header">
+                        <img src="https://picsum.photos/60/60?random=6" alt="Avatar" class="comment-avatar">
+                        <div class="comment-username">@creative_mind</div>
+                        <div class="comment-time">45m</div>
+                    </div>
+                    <div class="comment-text">Gracias a todos! Pronto subiré un tutorial 🙌</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Comment -->
+        <div class="add-comment">
+            <input type="text" class="comment-input" placeholder="Añadir comentario..." id="commentInput">
+            <button class="send-comment" onclick="addComment()">➤</button>
         </div>
 
         <!-- Bottom Navigation -->
@@ -588,7 +1026,7 @@
                 <div class="nav-icon">🔴</div>
                 <div>Live</div>
             </a>
-            <a href="#" class="nav-item">
+            <a href="#" class="nav-item" onclick="showScreen('profileScreen')">
                 <div class="nav-icon">👤</div>
                 <div>Perfil</div>
             </a>
@@ -628,21 +1066,98 @@
             <button onclick="showScreen('mainScreen')" style="background: none; border: none; color: white; font-size: 20px;">×</button>
             <div class="live-indicator">
                 <span>🔴 EN VIVO</span>
-                <span class="live-viewers">1.2K viendo</span>
+                <span class="live-viewers" id="liveViewers">1.2K viendo</span>
             </div>
             <button style="background: none; border: none; color: white; font-size: 20px;">...</button>
         </div>
 
         <div class="live-video">
-            <video id="livePreview" autoplay muted style="width: 100%; height: 100%; object-fit: cover;"></video>
+            <video id="livePreview" autoplay muted></video>
         </div>
 
         <div class="live-controls">
             <button style="background: none; border: none; color: white; font-size: 24px;">🔇</button>
             <button style="background: none; border: none; color: white; font-size: 24px;">📷</button>
-            <button style="background: #ff0000; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold;">Finalizar</button>
-            <button style="background: none; border: none; color: white; font-size: 24px;">💬</button>
-            <button style="background: none; border: none; color: white; font-size: 24px;">❤️</button>
+            <button style="background: #ff0000; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold;" onclick="endLiveStream()">Finalizar</button>
+            <button style="background: none; border: none; color: white; font-size: 24px;" onclick="showComments()">💬</button>
+            <button style="background: none; border: none; color: white; font-size: 24px;" onclick="likeVideoLive()">❤️</button>
+        </div>
+    </div>
+
+    <!-- Profile Screen -->
+    <div class="screen profile-screen" id="profileScreen">
+        <div class="profile-header">
+            <img src="https://picsum.photos/200/200?random=7" alt="Profile" class="profile-avatar">
+            <h2>@creative_mind</h2>
+            <p>Creador de contenido • 2.3M seguidores</p>
+            <div class="profile-stats">
+                <div class="stat">
+                    <div class="stat-number">156</div>
+                    <div class="stat-label">Videos</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">2.3M</div>
+                    <div class="stat-label">Seguidores</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">1.2K</div>
+                    <div class="stat-label">Siguiendo</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <div class="profile-tabs">
+                <div class="tab active" onclick="switchTab(this, 'videos')">_videos</div>
+                <div class="tab" onclick="switchTab(this, 'liked')">❤️</div>
+                <div class="tab" onclick="switchTab(this, 'saved')">🔖</div>
+            </div>
+
+            <div class="videos-grid">
+                <div class="video-thumbnail">
+                    <img src="https://picsum.photos/300/300?random=8" alt="Video">
+                    <div class="video-stats">❤️ 12.5K</div>
+                </div>
+                <div class="video-thumbnail">
+                    <img src="https://picsum.photos/300/300?random=9" alt="Video">
+                    <div class="video-stats">❤️ 8.2K</div>
+                </div>
+                <div class="video-thumbnail">
+                    <img src="https://picsum.photos/300/300?random=10" alt="Video">
+                    <div class="video-stats">❤️ 15.7K</div>
+                </div>
+                <div class="video-thumbnail">
+                    <img src="https://picsum.photos/300/300?random=11" alt="Video">
+                    <div class="video-stats">❤️ 9.3K</div>
+                </div>
+                <div class="video-thumbnail">
+                    <img src="https://picsum.photos/300/300?random=12" alt="Video">
+                    <div class="video-stats">❤️ 11.8K</div>
+                </div>
+                <div class="video-thumbnail">
+                    <img src="https://picsum.photos/300/300?random=13" alt="Video">
+                    <div class="video-stats">❤️ 7.4K</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <a href="#" class="nav-item" onclick="showScreen('mainScreen')">
+                <div class="nav-icon">🏠</div>
+                <div>Inicio</div>
+            </a>
+            <a href="#" class="nav-item" onclick="showScreen('recordingScreen')">
+                <div class="nav-icon">➕</div>
+                <div>Crear</div>
+            </a>
+            <a href="#" class="nav-item" onclick="showScreen('liveScreen')">
+                <div class="nav-icon">🔴</div>
+                <div>Live</div>
+            </a>
+            <a href="#" class="nav-item active">
+                <div class="nav-icon">👤</div>
+                <div>Perfil</div>
+            </a>
         </div>
     </div>
 
@@ -653,6 +1168,13 @@
         let mediaRecorder;
         let recordedChunks = [];
         let stream;
+        let userCoins = 100;
+        let currentVideoId = 1;
+        let recommendations = [
+            { id: 4, title: "Tendencias del día", creator: "@trending_hub" },
+            { id: 5, title: "Para ti", creator: "@your_style" },
+            { id: 6, title: "Siguiendo", creator: "@following_feed" }
+        ];
 
         // Ocultar loading screen
         window.addEventListener('load', function() {
@@ -676,6 +1198,8 @@
                 initCamera();
             } else if (screenId === 'liveScreen') {
                 initLiveStream();
+            } else if (screenId === 'mainScreen') {
+                hideComments();
             }
         }
 
@@ -692,6 +1216,9 @@
             } else {
                 currentVideoIndex = (currentVideoIndex - 1 + videos.length) % videos.length;
             }
+            
+            // Actualizar video ID actual
+            currentVideoId = parseInt(videos[currentVideoIndex].dataset.videoId);
             
             // Mostrar nuevo video
             videos[currentVideoIndex].classList.add('active');
@@ -770,6 +1297,9 @@
             showMessage('¡Bienvenido! Iniciando sesión...');
             setTimeout(() => {
                 showScreen('mainScreen');
+                showMessage('¡Has ganado 20 monedas por iniciar sesión!');
+                userCoins += 20;
+                updateCoinsDisplay();
             }, 1500);
         });
 
@@ -778,6 +1308,9 @@
             showMessage('¡Cuenta creada exitosamente!');
             setTimeout(() => {
                 showScreen('loginScreen');
+                showMessage('¡Bienvenido! Has ganado 50 monedas por registrarte.');
+                userCoins += 50;
+                updateCoinsDisplay();
             }, 1500);
         });
 
@@ -786,20 +1319,68 @@
             const icon = element.querySelector('.interaction-icon');
             const count = element.querySelector('.interaction-count');
             
-            if (icon.textContent === '❤️') {
+            if (!element.classList.contains('liked')) {
+                element.classList.add('liked');
                 icon.textContent = '❤️';
                 icon.style.background = 'rgba(255, 0, 80, 0.2)';
                 // Simular incremento
                 const current = parseFloat(count.textContent) || 0;
                 count.textContent = (current + 1) + 'K';
+                
+                // Recompensa por like
+                giveReward(5, 'por dar like');
             } else {
-                icon.textContent = '❤️';
+                element.classList.remove('liked');
                 icon.style.background = 'rgba(255, 255, 255, 0.1)';
+                
+                // Decrementar contador
+                const current = parseFloat(count.textContent) || 0;
+                count.textContent = Math.max(0, current - 1) + 'K';
             }
         }
 
+        function likeVideoLive() {
+            showMessage('¡Te gusta esta transmisión en vivo!');
+            giveReward(10, 'por dar like en live');
+        }
+
+        function shareVideo() {
+            showMessage('Video compartido con tus seguidores');
+            giveReward(15, 'por compartir');
+        }
+
+        function saveVideo() {
+            showMessage('Video guardado en tu colección');
+            giveReward(8, 'por guardar video');
+        }
+
         function showComments() {
-            showMessage('Función de comentarios disponible pronto');
+            document.getElementById('commentsSection').classList.add('active');
+        }
+
+        function hideComments() {
+            document.getElementById('commentsSection').classList.remove('active');
+        }
+
+        function addComment() {
+            const input = document.getElementById('commentInput');
+            if (input.value.trim()) {
+                const commentsList = document.getElementById('commentsList');
+                const commentDiv = document.createElement('div');
+                commentDiv.className = 'comment';
+                commentDiv.innerHTML = `
+                    <div class="comment-header">
+                        <img src="https://picsum.photos/60/60?random=${Math.floor(Math.random()*100)}" alt="Avatar" class="comment-avatar">
+                        <div class="comment-username">@tu_usuario</div>
+                        <div class="comment-time">ahora</div>
+                    </div>
+                    <div class="comment-text">${input.value}</div>
+                `;
+                commentsList.appendChild(commentDiv);
+                input.value = '';
+                showMessage('Comentario añadido');
+                giveReward(3, 'por comentar');
+            }
         }
 
         // Sistema de grabación
@@ -855,6 +1436,7 @@
                 recordBtn.innerHTML = '';
                 isRecording = false;
                 showMessage('Video guardado en tu galería');
+                giveReward(25, 'por crear video');
                 
                 // Volver a la pantalla principal después de grabar
                 setTimeout(() => {
@@ -898,7 +1480,7 @@
         // Streaming en vivo
         async function initLiveStream() {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({ 
+                stream = await navigator.mediaDevices.getUserMedia({ 
                     video: { width: 1280, height: 720 },
                     audio: true 
                 });
@@ -907,18 +1489,75 @@
                 video.srcObject = stream;
                 
                 showMessage('Transmisión en vivo iniciada');
+                document.getElementById('monetizationIndicator').classList.add('active');
                 
                 // Simular aumento de espectadores
                 let viewers = 1200;
-                const viewerElement = document.querySelector('.live-viewers');
+                const viewerElement = document.getElementById('liveViewers');
                 
-                setInterval(() => {
+                const viewerInterval = setInterval(() => {
                     viewers += Math.floor(Math.random() * 10);
                     viewerElement.textContent = (viewers/1000).toFixed(1) + 'K viendo';
+                    
+                    // Recompensa por viewers
+                    if (viewers % 100 === 0) {
+                        giveReward(2, 'por crecimiento de audiencia');
+                    }
                 }, 5000);
+                
+                // Limpiar intervalo cuando se salga
+                document.getElementById('liveScreen').addEventListener('transitionend', function() {
+                    if (!this.classList.contains('active')) {
+                        clearInterval(viewerInterval);
+                        document.getElementById('monetizationIndicator').classList.remove('active');
+                    }
+                });
                 
             } catch (error) {
                 showMessage('No se pudo iniciar la transmisión: ' + error.message);
+            }
+        }
+
+        function endLiveStream() {
+            showMessage('Transmisión finalizada. Has ganado 100 monedas');
+            userCoins += 100;
+            updateCoinsDisplay();
+            showScreen('mainScreen');
+        }
+
+        // Sistema de recompensas
+        function giveReward(coins, reason) {
+            userCoins += coins;
+            updateCoinsDisplay();
+            showMessage(`¡Has ganado ${coins} monedas ${reason}!`);
+        }
+
+        function showRewards() {
+            document.getElementById('totalCoins').textContent = userCoins;
+            document.getElementById('rewardsPopup').classList.add('show');
+        }
+
+        function closeRewards() {
+            document.getElementById('rewardsPopup').classList.remove('show');
+        }
+
+        function updateCoinsDisplay() {
+            // Aquí podrías actualizar la UI con las monedas actuales
+        }
+
+        // Sistema de seguimiento
+        function toggleFollow(button) {
+            if (button.classList.contains('following')) {
+                button.classList.remove('following');
+                button.textContent = 'Seguir';
+                button.style.background = '#ff0050';
+                showMessage('Dejaste de seguir a este usuario');
+            } else {
+                button.classList.add('following');
+                button.textContent = 'Siguiendo';
+                button.style.background = '#4CAF50';
+                showMessage('Ahora sigues a este usuario');
+                giveReward(10, 'por seguir a un creador');
             }
         }
 
@@ -939,6 +1578,30 @@
                 item.classList.remove('active');
             });
             event.currentTarget.classList.add('active');
+            showScreen('mainScreen');
+        }
+
+        function showSearch() {
+            showMessage('Función de búsqueda disponible pronto');
+        }
+
+        function showMessages() {
+            showMessage('Buzón de mensajes disponible pronto');
+        }
+
+        // Perfil y tabs
+        function switchTab(element, tabName) {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            element.classList.add('active');
+            showMessage(`Mostrando ${tabName}`);
+        }
+
+        // Algoritmo de recomendaciones
+        function showRecommendations() {
+            const randomRec = recommendations[Math.floor(Math.random() * recommendations.length)];
+            showMessage(`Recomendado: ${randomRec.title} por ${randomRec.creator}`);
         }
 
         // Simular comentarios y likes en tiempo real
@@ -946,13 +1609,13 @@
             if (document.getElementById('mainScreen').classList.contains('active')) {
                 const interactionItems = document.querySelectorAll('.interaction-count');
                 interactionItems.forEach(item => {
-                    if (Math.random() > 0.7) {
+                    if (Math.random() > 0.9) {
                         const current = parseFloat(item.textContent) || 0;
-                        item.textContent = (current + Math.floor(Math.random() * 5)) + 'K';
+                        item.textContent = (current + Math.floor(Math.random() * 3)) + 'K';
                     }
                 });
             }
-        }, 10000);
+        }, 8000);
 
         // Reproducir videos cuando están visibles
         const observer = new IntersectionObserver((entries) => {
@@ -978,6 +1641,9 @@
 
         // Observar videos cuando la pantalla principal se activa
         document.getElementById('mainScreen').addEventListener('transitionend', observeVideos);
+
+        // Inicializar recomendaciones
+        document.getElementById('recommendations').style.display = 'flex';
     </script>
 </body>
 </html>
