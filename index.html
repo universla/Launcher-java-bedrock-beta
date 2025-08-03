@@ -129,8 +129,8 @@
             gap: 30px;
         }
 
-        /* Contador de espectáculo */
-        .show-container {
+        /* Contador de espera */
+        .wait-container {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 20px;
             padding: 30px;
@@ -138,7 +138,7 @@
             text-align: center;
         }
 
-        .show-title {
+        .wait-title {
             font-size: 1.8rem;
             margin-bottom: 20px;
             color: #ff0050;
@@ -148,13 +148,13 @@
             background-clip: text;
         }
 
-        .show-subtitle {
+        .wait-subtitle {
             font-size: 1.2rem;
             margin-bottom: 30px;
             color: rgba(255, 255, 255, 0.8);
         }
 
-        .show-countdown {
+        .wait-countdown {
             display: flex;
             justify-content: center;
             gap: 20px;
@@ -524,7 +524,7 @@
                 font-size: 2rem;
             }
             
-            .show-countdown {
+            .wait-countdown {
                 gap: 10px;
             }
             
@@ -566,17 +566,13 @@
         <div class="main-layout">
             <!-- Panel izquierdo - Contador principal -->
             <div class="left-panel">
-                <div class="show-container">
-                    <div class="show-title">⏰ CRONÓMETRO EN TIEMPO REAL</div>
-                    <div class="show-subtitle">Tiempo transcurrido desde el inicio:</div>
+                <div class="wait-container">
+                    <div class="wait-title">⏰ TIEMPO DE ESPERA</div>
+                    <div class="wait-subtitle">El espectáculo comenzará en:</div>
                     
-                    <div class="show-countdown">
+                    <div class="wait-countdown">
                         <div class="time-unit">
-                            <div class="time-number" id="hours">00</div>
-                            <div class="time-label">Horas</div>
-                        </div>
-                        <div class="time-unit">
-                            <div class="time-number" id="minutes">00</div>
+                            <div class="time-number" id="minutes">10</div>
                             <div class="time-label">Minutos</div>
                         </div>
                         <div class="time-unit">
@@ -588,7 +584,7 @@
                     <div class="progress-container">
                         <div class="progress-bar" id="progressBar"></div>
                     </div>
-                    <div class="progress-text" id="progressText">Iniciando cronómetro...</div>
+                    <div class="progress-text" id="progressText">0% completado</div>
                 </div>
             </div>
             
@@ -633,21 +629,21 @@
                                 <div class="message-username">📢 Sistema</div>
                                 <div class="message-time">Ahora</div>
                             </div>
-                            <div class="message-content">¡Bienvenidos! El cronómetro está funcionando en tiempo real</div>
+                            <div class="message-content">¡Bienvenidos! El espectáculo comenzará en 10 minutos</div>
                         </div>
                         <div class="message user-message">
                             <div class="message-header">
                                 <div class="message-username">@usuario123</div>
                                 <div class="message-time">2 min</div>
                             </div>
-                            <div class="message-content">¡Qué emoción! ¿Cuándo comenzará el espectáculo?</div>
+                            <div class="message-content">¡Qué emoción! ¿Qué sorpresas nos esperan?</div>
                         </div>
                         <div class="message announcement">
                             <div class="message-header">
                                 <div class="message-username">📢 Sistema</div>
                                 <div class="message-time">5 min</div>
                             </div>
-                            <div class="message-content">El espectáculo comenzará automáticamente cuando el cronómetro llegue a 24 minutos</div>
+                            <div class="message-content">Preparando funciones sorpresa...</div>
                         </div>
                     </div>
                     <div class="message-input-container">
@@ -665,7 +661,7 @@
         </div>
         
         <div class="footer">
-            <p>¡Gracias por tu paciencia! El espectáculo comenzará cuando el cronómetro llegue a 24 minutos</p>
+            <p>¡Gracias por tu paciencia! El espectáculo comenzará en 10 minutos</p>
             <p>© 2024 VibeTok Pro - Todos los derechos reservados</p>
         </div>
     </div>
@@ -732,41 +728,37 @@
             return num.toString();
         }
 
-        // Cronómetro en tiempo real que inicia el espectáculo a los 24 minutos
-        let startTime = new Date();
-        const showTime = 24 * 60; // 24 minutos en segundos
+        // Contador de 10 minutos que inicia el espectáculo
+        let totalSeconds = 10 * 60; // 10 minutos en segundos
+        let currentSeconds = totalSeconds;
 
-        function startRealTimeClock() {
-            const hoursElement = document.getElementById('hours');
+        function startWaitCountdown() {
             const minutesElement = document.getElementById('minutes');
             const secondsElement = document.getElementById('seconds');
             const progressBar = document.getElementById('progressBar');
             const progressText = document.getElementById('progressText');
             
-            const clockInterval = setInterval(() => {
-                const now = new Date();
-                const elapsed = Math.floor((now - startTime) / 1000);
+            const countdownInterval = setInterval(() => {
+                currentSeconds--;
                 
-                // Calcular horas, minutos y segundos
-                const hours = Math.floor(elapsed / 3600);
-                const minutes = Math.floor((elapsed % 3600) / 60);
-                const seconds = elapsed % 60;
+                if (currentSeconds <= 0) {
+                    // El espectáculo comienza!
+                    clearInterval(countdownInterval);
+                    startShow();
+                    return;
+                }
                 
-                // Actualizar elementos
-                hoursElement.textContent = hours.toString().padStart(2, '0');
+                const minutes = Math.floor(currentSeconds / 60);
+                const seconds = currentSeconds % 60;
+                
                 minutesElement.textContent = minutes.toString().padStart(2, '0');
                 secondsElement.textContent = seconds.toString().padStart(2, '0');
                 
                 // Actualizar barra de progreso
-                const progress = Math.min((elapsed / showTime) * 100, 100);
+                const progress = ((totalSeconds - currentSeconds) / totalSeconds) * 100;
                 progressBar.style.width = progress + '%';
-                progressText.textContent = `Tiempo transcurrido: ${hours}h ${minutes}m ${seconds}s`;
+                progressText.textContent = Math.round(progress) + '% completado';
                 
-                // Verificar si llegó a 24 minutos (1440 segundos)
-                if (elapsed >= showTime) {
-                    clearInterval(clockInterval);
-                    startShow();
-                }
             }, 1000);
         }
 
@@ -896,7 +888,7 @@
         // Inicializar todo cuando la página carga
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
-            startRealTimeClock();
+            startWaitCountdown();
             setupChat();
             
             // Actualizar estadísticas cada 3 segundos
