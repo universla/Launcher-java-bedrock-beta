@@ -209,7 +209,7 @@
             height: 100%;
             background: linear-gradient(90deg, #ff0050, #ff8c00, #00ff88);
             width: 0%;
-            transition: width 1s ease;
+            transition: width 0.1s ease;
             animation: progressPulse 2s infinite;
         }
 
@@ -402,7 +402,7 @@
             justify-content: center;
             align-items: center;
             z-index: 10000;
-            animation: showEntrance 2s ease;
+            animation: showEntrance 1s ease;
         }
 
         @keyframes showEntrance {
@@ -417,12 +417,12 @@
         .show-logo {
             font-size: 8rem;
             margin-bottom: 30px;
-            animation: showLogoPulse 1s infinite;
+            animation: showLogoPulse 0.5s infinite;
         }
 
         @keyframes showLogoPulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.2); }
             100% { transform: scale(1); }
         }
 
@@ -444,7 +444,7 @@
             width: 10px;
             height: 10px;
             background: #ff0050;
-            animation: confettiFall 5s linear infinite;
+            animation: confettiFall 3s linear infinite;
             z-index: 10001;
         }
 
@@ -572,7 +572,7 @@
                     
                     <div class="wait-countdown">
                         <div class="time-unit">
-                            <div class="time-number" id="minutes">10</div>
+                            <div class="time-number" id="minutes">01</div>
                             <div class="time-label">Minutos</div>
                         </div>
                         <div class="time-unit">
@@ -629,19 +629,19 @@
                                 <div class="message-username">📢 Sistema</div>
                                 <div class="message-time">Ahora</div>
                             </div>
-                            <div class="message-content">¡Bienvenidos! El espectáculo comenzará en 10 minutos</div>
+                            <div class="message-content">¡Bienvenidos! El espectáculo comenzará en 1 minuto</div>
                         </div>
                         <div class="message user-message">
                             <div class="message-header">
                                 <div class="message-username">@usuario123</div>
-                                <div class="message-time">2 min</div>
+                                <div class="message-time">10 seg</div>
                             </div>
                             <div class="message-content">¡Qué emoción! ¿Qué sorpresas nos esperan?</div>
                         </div>
                         <div class="message announcement">
                             <div class="message-header">
                                 <div class="message-username">📢 Sistema</div>
-                                <div class="message-time">5 min</div>
+                                <div class="message-time">30 seg</div>
                             </div>
                             <div class="message-content">Preparando funciones sorpresa...</div>
                         </div>
@@ -661,7 +661,7 @@
         </div>
         
         <div class="footer">
-            <p>¡Gracias por tu paciencia! El espectáculo comenzará en 10 minutos</p>
+            <p>¡Gracias por tu paciencia! El espectáculo comenzará en 1 minuto</p>
             <p>© 2024 VibeTok Pro - Todos los derechos reservados</p>
         </div>
     </div>
@@ -728,8 +728,8 @@
             return num.toString();
         }
 
-        // Contador de 10 minutos que inicia el espectáculo
-        let totalSeconds = 10 * 60; // 10 minutos en segundos
+        // Contador de 1 minuto que inicia el espectáculo
+        let totalSeconds = 60; // 1 minuto en segundos
         let currentSeconds = totalSeconds;
 
         function startWaitCountdown() {
@@ -801,22 +801,22 @@
                 
                 messagesContainer.appendChild(messageDiv);
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }, 3000);
+            }, 1000);
         }
 
         // Crear confeti para el espectáculo
         function createConfetti() {
             const colors = ['#ff0050', '#ff8c00', '#00ff88', '#00ffff', '#ff00ff'];
             
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 150; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
                 confetti.style.left = Math.random() * 100 + 'vw';
                 confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 confetti.style.width = (Math.random() * 10 + 5) + 'px';
                 confetti.style.height = confetti.style.width;
-                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                confetti.style.animationDelay = (Math.random() * 2) + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                confetti.style.animationDelay = (Math.random() * 1) + 's';
                 
                 document.body.appendChild(confetti);
                 
@@ -824,7 +824,7 @@
                     if (confetti.parentNode) {
                         confetti.parentNode.removeChild(confetti);
                     }
-                }, 5000);
+                }, 3000);
             }
         }
 
@@ -863,7 +863,7 @@
                 
                 messagesContainer.appendChild(messageDiv);
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }, 6000);
+            }, 3000);
             
             // Enviar mensaje con Enter
             messageInput.addEventListener('keypress', function(e) {
@@ -891,8 +891,8 @@
             startWaitCountdown();
             setupChat();
             
-            // Actualizar estadísticas cada 3 segundos
-            setInterval(updateStats, 3000);
+            // Actualizar estadísticas cada 2 segundos
+            setInterval(updateStats, 2000);
         });
     </script>
 </body>
